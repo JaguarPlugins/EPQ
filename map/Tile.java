@@ -46,4 +46,12 @@ public class Tile {
 		
 	}
 	
+	@Override
+	public String toString() {
+		if (solid) {
+			return "1";
+		}
+		return "0";
+	}
+	
 }

@@ -1,5 +1,6 @@
 package edu.agray.maze;
 
+import edu.agray.maze.map.Map;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -7,11 +8,16 @@ public class Run implements Runnable {
 
 	private GraphicsContext g;
 	private boolean running;
+	private Map map;
 	
 	public Run(GraphicsContext g) {
+		
 		super();
 		this.g = g;
 		running = true;
+		
+		map = new Map("src/edu/agray/maze/map/small.txt");
+		
 	}
 	
 	private void tick() {
