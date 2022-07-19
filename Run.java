@@ -2,7 +2,6 @@ package edu.agray.maze;
 
 import edu.agray.maze.map.Map;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 public class Run implements Runnable {
 
@@ -27,10 +26,8 @@ public class Run implements Runnable {
 	private void render() {
 		
 		g.clearRect(0, 0, Main.WIDTH, Main.HEIGHT);
-		g.setStroke(Color.GREY);
-		g.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
-		g.setStroke(Color.RED);
-		g.fillRect(50, 50, 100, 100);
+		
+		map.render(g);
 		
 	}
 	

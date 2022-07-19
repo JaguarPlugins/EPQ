@@ -23,6 +23,16 @@ public class Map {
 		
 	}
 	
+	public void render(GraphicsContext g) {
+		
+		for (Tile[] rows : tiles) {
+			for (Tile column : rows) {
+				column.render(g);
+			}
+		}
+		
+	}
+	
 	public Tile getTile(int x, int y) {
 		
 		return tiles[y][x];
