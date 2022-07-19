@@ -1,5 +1,6 @@
 package edu.agray.maze;
 
+import edu.agray.maze.entities.Player;
 import edu.agray.maze.map.Map;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -8,6 +9,7 @@ public class Run implements Runnable {
 	private GraphicsContext g;
 	private boolean running;
 	private Map map;
+	private Player player;
 	
 	public Run(GraphicsContext g) {
 		
@@ -16,6 +18,7 @@ public class Run implements Runnable {
 		running = true;
 		
 		map = new Map("src/edu/agray/maze/map/small.txt");
+		player = new Player(40, 40, map.getTileWidth() - 5, map.getTileHeight() - 5);
 		
 	}
 	
@@ -28,6 +31,7 @@ public class Run implements Runnable {
 		g.clearRect(0, 0, Main.WIDTH, Main.HEIGHT);
 		
 		map.render(g);
+		player.render(g);
 		
 	}
 	

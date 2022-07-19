@@ -16,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 public class Map {
 
 	private Tile[][] tiles; // NOTE: DUE TO READING OF FILES, X AND Y ARE THE WRONG WAY AROUND. WILL CORRECT IN GETTERS
+	private double tileWidth, tileHeight;
 	
 	public Map(String fileName) {
 		
@@ -76,6 +77,9 @@ public class Map {
 			
 			reader.close();
 			
+			tileHeight = Main.HEIGHT / outputList.size();
+			tileWidth = Main.WIDTH / outputList.get(0).length;
+			
 			Tile[][] outputArray = new Tile[outputList.size()][outputList.get(0).length];
 			for (int i = 0; i < outputList.size(); i++) {
 				outputArray[i] = outputList.get(i);
@@ -95,6 +99,14 @@ public class Map {
 			return null;
 		}
 		
+	}
+
+	public double getTileWidth() {
+		return tileWidth;
+	}
+
+	public double getTileHeight() {
+		return tileHeight;
 	}
 	
 }
