@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 //	GLOBAL VARIABLES
-	public static final int WIDTH = 800, HEIGHT = 800;
+	public static final double WIDTH = 800, HEIGHT = 800;
 	
 	private Thread t;
 	
@@ -31,8 +31,22 @@ public class Main extends Application {
 		t = new Thread(run);
 		t.start();
 		
+//		Create scene and add listeners
+		Scene scene = new Scene(placeholder);
+//		NOTE: IF NEEDED, CO-ORDINATES CAN EASILY BE DISPLAYED
+//		scene.setOnMouseMoved(new EventHandler<MouseEvent>() {
+//
+//			@Override
+//			public void handle(MouseEvent e) {
+//				
+//				System.out.println("(" + e.getX() + "," + e.getY() + ")");
+//				
+//			}
+//			
+//		});
+		
 //		Setup for stage
-		primaryStage.setScene(new Scene(placeholder));
+		primaryStage.setScene(scene);
 		primaryStage.setTitle("Alex Gray EPQ Maze AI Program");
 		primaryStage.setWidth(WIDTH + 16);
 		primaryStage.setHeight(HEIGHT + 39);

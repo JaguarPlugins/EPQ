@@ -54,15 +54,15 @@ public class Map {
 			int y = 0;
 			while ((line = reader.readLine()) != null) {
 				
-				char[] charList = line.toCharArray(); // turns line of txt file into array
+				char[] charList = line.toCharArray(); // turns line of text file into array
 				Tile[] tileList = new Tile[line.length()]; // temporary array to store row of tiles
 				
 				for (int x = 0; x < line.length(); x++) { // iterates through array of tiles
 					
 					double width = Main.WIDTH/line.length();
 //					TODO generate height separately for when it isn't a square.
-					double xPos = x*width;
-					double yPos = y*width;
+					double xPos = x*(width);
+					double yPos = y*(width);
 					
 					tileList[x] = new Tile((charList[x] == '1'), xPos, yPos, width, width, 0);
 					

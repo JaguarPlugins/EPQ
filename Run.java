@@ -41,7 +41,7 @@ public class Run implements Runnable {
 	public void run() {
 		
 //		Keeps the system running at 60 fps
-		int fps = 60;
+		int fps = 30;
 		double timePerTick = 1_000_000_000 / fps;
 		double delta = 0;
 		long currentTime;
