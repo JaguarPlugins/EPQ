@@ -18,11 +18,17 @@ public class Run implements Runnable {
 		running = true;
 		
 		map = new Map("src/edu/agray/maze/map/small.txt");
-		player = new Player(40, 40, map.getTileWidth() - 5, map.getTileHeight() - 5);
+		player = new Player(map, 0, 3*map.getTileHeight(), map.getTileWidth(), map.getTileHeight());
 		
 	}
 	
+	public Player getPlayer() {
+		return player;
+	}
+
 	private void tick() {
+		
+		player.tick();
 		
 	}
 	

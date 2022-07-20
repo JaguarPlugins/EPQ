@@ -40,6 +40,23 @@ public class Map {
 		
 	}
 	
+	public boolean checkCollision(double xPos, double yPos) {
+		
+		// if player is outside the map
+		if (xPos < 0 || yPos < 0) {
+			return true;
+		}
+		
+		if (xPos > Main.WIDTH - tileWidth || yPos > Main.HEIGHT - tileHeight) {
+			return true;
+		}
+		
+		// if player is going to collide with a tile
+		// divides and rounds to convert coords to grip position
+		return (getTile((int) Math.round(xPos/tileWidth), (int) Math.round(yPos/tileHeight)).isSolid());
+		
+	}
+	
 	private Tile[][] loadMap(String fileName) {
 		
 		try {
