@@ -82,7 +82,11 @@ public class Map {
 					double xPos = x*(width);
 					double yPos = y*(width);
 					
-					tileList[x] = new Tile((charList[x] == '1'), xPos, yPos, width, width, 0);
+					if (charList[x] == '2') {
+						tileList[x] = new Tile((charList[x] == '1'), xPos, yPos, width, width, 1);
+					} else {
+						tileList[x] = new Tile((charList[x] == '1'), xPos, yPos, width, width);
+					}
 					
 				}
 				

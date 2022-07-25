@@ -26,6 +26,18 @@ public abstract class Entity implements EventHandler<KeyEvent> {
 	
 	public abstract void render(GraphicsContext g);
 	
+	protected boolean move(int xPos, int yPos) {
+		
+		if (!map.checkCollision(xPos, yPos)) {
+			x = xPos * width;
+			y = yPos * width;
+			return true;
+		}
+		
+		return false; // blocks the movement and then sends false to let the AI know that this move is not allowed
+		
+	}
+	
 	@Override
 	public void handle(KeyEvent e){
 	

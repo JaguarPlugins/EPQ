@@ -10,6 +10,7 @@ public class Player extends Entity {
 	
 	public Player(Map map, double x, double y, double width, double height) {
 		super(map, x, y, width, height);
+		move(3,1);
 	}
 
 	@Override
