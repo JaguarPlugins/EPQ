@@ -5,11 +5,16 @@ import javafx.scene.paint.Color;
 
 public class Tile {
 
+	public double getScore() {
+		return score;
+	}
+
 	private boolean solid;
 	private double score;
-	private double x, y, width, height;
+	private int x, y;
+	private double width, height;
 	
-	public Tile(boolean solid, double x, double y, double width, double height, double score) {
+	public Tile(boolean solid, int x, int y, double width, double height, double score) {
 
 		this.solid = solid; // determines whether or not the player can move through this tile
 		this.score = score;
@@ -20,7 +25,7 @@ public class Tile {
 		
 	}
 	
-	public Tile(boolean solid, double x, double y, double width, double height) {
+	public Tile(boolean solid, int x, int y, double width, double height) {
 
 		this.solid = solid; // determines whether or not the player can move through this tile
 		if (solid) {
@@ -43,7 +48,7 @@ public class Tile {
 			g.setFill(Color.rgb((int) (255*(1-score)), 255, (int) (255*(1-score)))); // will change the colour of the block depending on its score
 		}
 		
-		g.fillRect(x, y, width, height);
+		g.fillRect(x*width, y*width, width, height);
 		
 	}
 	

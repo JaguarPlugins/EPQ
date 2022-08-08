@@ -79,13 +79,11 @@ public class Map {
 					
 					double width = Main.WIDTH/line.length();
 //					TODO generate height separately for when it isn't a square.
-					double xPos = x*(width);
-					double yPos = y*(width);
 					
 					if (charList[x] == '2') {
-						tileList[x] = new Tile((charList[x] == '1'), xPos, yPos, width, width, 1);
+						tileList[x] = new Tile((charList[x] == '1'), x, y, width, width, 1);
 					} else {
-						tileList[x] = new Tile((charList[x] == '1'), xPos, yPos, width, width);
+						tileList[x] = new Tile((charList[x] == '1'), x, y, width, width);
 					}
 					
 				}
