@@ -7,14 +7,8 @@ import edu.agray.maze.map.Map;
 import edu.agray.maze.map.Tile;
 
 public abstract class AI {
-
-	protected Map map;
-
-	public AI(Map map) {
-		this.map = map;
-	}
 	
-	protected Tile[] generateOptions(Tile up, Tile right, Tile down, Tile left) {
+	protected Tile[] generateOptions(Map map, Tile up, Tile right, Tile down, Tile left) {
 //		Takes all the tiles adjacent to the tile and returns a list of all the possible options
 		
 		Tile[] tiles = {up, right, down, left};
@@ -46,5 +40,7 @@ public abstract class AI {
 		return output;
 		
 	}
+	
+	public abstract Tile nextMove(Map map, Tile currentPosition);
 	
 }

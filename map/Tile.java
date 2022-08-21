@@ -45,13 +45,21 @@ public class Tile {
 		if (solid) {
 			g.setFill(Color.BLACK); // Black indicates the block is solid
 		} else {
-			g.setFill(Color.rgb((int) (255*(1-score)), 255, (int) (255*(1-score)))); // will change the colour of the block depending on its score
+			g.setFill(Color.rgb((int) (255*(1-score)), (int) (255*(1-score)), 255)); // will change the colour of the block depending on its score
 		}
 		
 		g.fillRect(x*width, y*width, width, height);
 		
 	}
 	
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
 	public boolean isSolid() {
 		return solid;
 	}

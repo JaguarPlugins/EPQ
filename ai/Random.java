@@ -5,8 +5,23 @@ import edu.agray.maze.map.Tile;
 
 public class Random extends AI {
 
-	public Random(Map map) {
-		super(map);
+	@Override
+	public Tile nextMove(Map map, Tile currentPosition) {
+		
+//		Logic
+		
+		
+//		Moving the player
+		int xPos = currentPosition.getX();
+		int yPos = currentPosition.getY();
+		
+		return generateOptions(map, 
+				map.getTile(xPos, yPos - 1), 
+				map.getTile(xPos + 1, yPos),
+				map.getTile(xPos, yPos + 1),
+				map.getTile(xPos - 1, yPos))
+				[0]; // selects the first (most favourable position in the choice of options
+		
 	}
-
+	
 }
