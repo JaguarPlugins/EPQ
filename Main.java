@@ -33,7 +33,7 @@ public class Main extends Application {
 		
 //		Create scene and add listeners
 		Scene scene = new Scene(placeholder);
-		scene.setOnKeyReleased(run.getPlayer()); // player now listens for key presses to move
+//		scene.setOnKeyReleased(run.getActive()); // player now listens for key presses to move
 //		NOTE: IF NEEDED, CO-ORDINATES CAN EASILY BE DISPLAYED
 //		scene.setOnMouseMoved(new EventHandler<MouseEvent>() {
 //

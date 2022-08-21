@@ -36,24 +36,27 @@ public class Map {
 	
 	public Tile getTile(int x, int y) {
 		
+		if (x < 0 || y < 0 || x >= tiles[0].length || y >= tiles.length) {
+			return null;
+		}
 		return tiles[y][x];
 		
 	}
 	
-	public boolean checkCollision(double xPos, double yPos) {
+	public boolean checkCollision(int xPos, int yPos) {
 		
 		// if player is outside the map
 		if (xPos < 0 || yPos < 0) {
 			return true;
 		}
 		
-		if (xPos > Main.WIDTH - tileWidth || yPos > Main.HEIGHT - tileHeight) {
+		if (xPos >= tiles[0].length || yPos >= tiles.length) {
 			return true;
 		}
 		
 		// if player is going to collide with a tile
 		// divides and rounds to convert coords to grip position
-		return (getTile((int) Math.round(xPos/tileWidth), (int) Math.round(yPos/tileHeight)).isSolid());
+		return (getTile(xPos, yPos).isSolid());
 		
 	}
 	

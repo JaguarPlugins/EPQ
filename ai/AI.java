@@ -11,13 +11,18 @@ public abstract class AI {
 	protected Tile[] generateOptions(Map map, Tile up, Tile right, Tile down, Tile left) {
 //		Takes all the tiles adjacent to the tile and returns a list of all the possible options
 		
+		System.out.println("Options:");
+		System.out.println("-------------");
+		
 		Tile[] tiles = {up, right, down, left};
 		
 		ArrayList<Tile> tileList = new ArrayList<Tile>();
 		
 		for (Tile t : tiles) {
-			if (!t.isSolid()) {
-				tileList.add(t);
+			if (t != null) {
+				if (!t.isSolid()) {
+					tileList.add(t);
+				}
 			}
 		}
 		
@@ -37,8 +42,14 @@ public abstract class AI {
 		for (int i = 0; i < tileList.size(); i++) {
 			output[i] = tileList.get(i);
 		}
-		return output;
 		
+//		Debug printing
+		for (Tile t : output) {
+			System.out.println("(" + t.getX() + ", " + t.getY() + ")");
+		}
+		
+		return output;
+			
 	}
 	
 	public abstract Tile nextMove(Map map, Tile currentPosition);

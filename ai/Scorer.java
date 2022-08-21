@@ -3,7 +3,7 @@ package edu.agray.maze.ai;
 import edu.agray.maze.map.Map;
 import edu.agray.maze.map.Tile;
 
-public class Random extends AI {
+public class Scorer extends AI {
 
 	@Override
 	public Tile nextMove(Map map, Tile currentPosition) {

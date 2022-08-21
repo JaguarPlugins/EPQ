@@ -8,11 +8,12 @@ import javafx.scene.input.KeyEvent;
 
 public abstract class Entity implements EventHandler<KeyEvent> {
 
-	protected double x, y, width, height;
+	protected int x, y;
+	protected double width, height;
 	protected boolean[] keys = {false, false, false, false};
 	protected Map map;
 	
-	public Entity(Map map, double x, double y, double width, double height) {
+	public Entity(Map map, int x, int y, double width, double height) {
 		
 		this.map = map;
 		this.x = x;
@@ -29,10 +30,12 @@ public abstract class Entity implements EventHandler<KeyEvent> {
 	protected boolean move(int xPos, int yPos) {
 		
 		if (!map.checkCollision(xPos, yPos)) {
-			x = xPos * width;
-			y = yPos * width;
+			x = xPos;
+			y = yPos;
 			return true;
 		}
+		
+		System.out.println("collion detected at: " + xPos + ", " + yPos);
 		
 		return false; // blocks the movement and then sends false to let the AI know that this move is not allowed
 		

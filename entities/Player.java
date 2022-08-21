@@ -8,27 +8,26 @@ import javafx.scene.paint.Color;
 
 public class Player extends Entity {
 	
-	public Player(Map map, double x, double y, double width, double height) {
+	public Player(Map map, int x, int y, double width, double height) {
 		super(map, x, y, width, height);
-		move(3,1);
 	}
 
 	@Override
 	public void tick() {
 		
-		double newX = x, newY = y;
+		int newX = x, newY = y;
 		
 		if (keys[0]) { //up
-			newY = y - height;
+			newY = y - 1;
 		}
 		if (keys[1]) {// right
-			newX = x + width;
+			newX = x + 1;
 		}
 		if (keys[2]) {// down
-			newY = y + height;
+			newY = y + 1;
 		}
 		if (keys[3]) {// left
-			newX = x - width;
+			newX = x - 1;
 		}
 		
 		if (!map.checkCollision(newX, newY)) {
@@ -44,7 +43,7 @@ public class Player extends Entity {
 	public void render(GraphicsContext g) {
 		
 		g.setFill(Color.BLUE);
-		g.fillOval(x, y, width, height);
+		g.fillOval(x*width, y*height, width, height);
 		
 	}
 	

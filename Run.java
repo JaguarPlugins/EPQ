@@ -1,6 +1,7 @@
 package edu.agray.maze;
 
-import edu.agray.maze.entities.Player;
+import edu.agray.maze.entities.Entity;
+import edu.agray.maze.entities.Turtle;
 import edu.agray.maze.map.Map;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -9,7 +10,7 @@ public class Run implements Runnable {
 	private GraphicsContext g;
 	private boolean running;
 	private Map map;
-	private Player player;
+	private Entity active;
 	
 	public Run(GraphicsContext g) {
 		
@@ -18,17 +19,17 @@ public class Run implements Runnable {
 		running = true;
 		
 		map = new Map("src/edu/agray/maze/map/small.txt");
-		player = new Player(map, 0, 3*map.getTileHeight(), map.getTileWidth(), map.getTileHeight());
+		active = new Turtle(map, 0, 3, map.getTileWidth(), map.getTileHeight());
 		
 	}
 	
-	public Player getPlayer() {
-		return player;
+	public Entity getActive() {
+		return active;
 	}
 
 	private void tick() {
 		
-		player.tick();
+		active.tick();
 		
 	}
 	
@@ -37,7 +38,7 @@ public class Run implements Runnable {
 		g.clearRect(0, 0, Main.WIDTH, Main.HEIGHT);
 		
 		map.render(g);
-		player.render(g);
+		active.render(g);
 		
 	}
 	
@@ -51,7 +52,7 @@ public class Run implements Runnable {
 	public void run() {
 		
 //		Keeps the system running at 60 fps
-		int fps = 30;
+		int fps = 1;
 		double timePerTick = 1_000_000_000 / fps;
 		double delta = 0;
 		long currentTime;
