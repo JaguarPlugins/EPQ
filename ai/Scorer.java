@@ -15,6 +15,8 @@ public class Scorer extends AI {
 		int xPos = currentPosition.getX();
 		int yPos = currentPosition.getY();
 		
+		map.getTile(xPos, yPos).punish();
+		
 		return generateOptions(map, 
 				map.getTile(xPos, yPos - 1), 
 				map.getTile(xPos + 1, yPos),

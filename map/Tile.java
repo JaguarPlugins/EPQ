@@ -5,10 +5,6 @@ import javafx.scene.paint.Color;
 
 public class Tile {
 
-	public double getScore() {
-		return score;
-	}
-
 	private boolean solid;
 	private double score;
 	private int x, y;
@@ -64,6 +60,28 @@ public class Tile {
 		return solid;
 	}
 
+	public double getScore() {
+		return score;
+	}
+	
+	public void setScore(double score) {
+		this.score = score;
+	}
+
+	public void punish() {
+		score = score*0.9;
+		if (score < 0) {
+			score = 0;
+		}
+	}
+	
+	public void reward() {
+		score = score*1.1;
+		if (score > 1) {
+			score = 1;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		if (solid) {
