@@ -23,6 +23,7 @@ public class Turtle extends Entity {
 		
 		if (map.getTile(x, y).getScore() >= 1) {
 			win = true;
+			return;
 		}
 		Tile newTile = aI.nextMove(map, map.getTile(x, y));
 		move(newTile.getX(), newTile.getY());

@@ -27,7 +27,7 @@ public class Tile {
 		if (solid) {
 			score = 0; // solid blocks have a score of 0 as the AI will never move there
 		} else {
-			score = 0.5; // we will start off all tiles as having a score of 0.5 and then adjust those values as the player moves
+			score = 0.7; // we will start off all tiles as having a score of 0.5 and then adjust those values as the player moves
 		}
 		this.x = x;
 		this.y = y;

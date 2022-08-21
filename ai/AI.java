@@ -20,7 +20,7 @@ public abstract class AI {
 		
 		for (Tile t : tiles) {
 			if (t != null) {
-				if (!t.isSolid()) {
+				if (!t.isSolid() && t.getScore() > 0) {
 					tileList.add(t);
 				}
 			}

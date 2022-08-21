@@ -124,10 +124,16 @@ public class Map {
 	}
 
 	public double getTileWidth() {
-		return tileWidth;
+		if (tileWidth < tileHeight) {
+			return tileWidth;
+		} 
+		return tileHeight;
 	}
 
 	public double getTileHeight() {
+		if (tileWidth < tileHeight) {
+			return tileWidth;
+		} 
 		return tileHeight;
 	}
 	

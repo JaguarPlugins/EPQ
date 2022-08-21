@@ -5,6 +5,12 @@ import edu.agray.maze.map.Tile;
 
 public class Scorer extends AI {
 
+	private boolean deadEnd;
+	
+	public Scorer() {
+		this.deadEnd = false;
+	}
+
 	@Override
 	public Tile nextMove(Map map, Tile currentPosition) {
 		

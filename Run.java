@@ -18,7 +18,7 @@ public class Run implements Runnable {
 		this.g = g;
 		running = true;
 		
-		map = new Map("src/edu/agray/maze/map/small.txt");
+		map = new Map("src/edu/agray/maze/map/medium.txt");
 		active = new Turtle(map, 0, 3, map.getTileWidth(), map.getTileHeight());
 		
 	}
