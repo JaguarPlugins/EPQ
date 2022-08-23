@@ -18,7 +18,7 @@ public class Run implements Runnable {
 		this.g = g;
 		running = true;
 		
-		map = new Map("src/edu/agray/maze/map/medium.txt");
+		map = new Map("src/edu/agray/maze/map/small.txt");
 		active = new Turtle(map, 0, 3, map.getTileWidth(), map.getTileHeight());
 		
 	}
@@ -52,7 +52,7 @@ public class Run implements Runnable {
 	public void run() {
 		
 //		Keeps the system running at 60 fps
-		int fps = 10;
+		int fps = 30;
 		double timePerTick = 1_000_000_000 / fps;
 		double delta = 0;
 		long currentTime;

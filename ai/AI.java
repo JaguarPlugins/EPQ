@@ -12,7 +12,6 @@ public abstract class AI {
 //		Takes all the tiles adjacent to the tile and returns a list of all the possible options
 		
 		System.out.println("Options:");
-		System.out.println("-------------");
 		
 		Tile[] tiles = {up, right, down, left};
 		
