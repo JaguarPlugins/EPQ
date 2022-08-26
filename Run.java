@@ -18,7 +18,7 @@ public class Run extends AnimationTimer {
 		this.g = g;
 		
 		map = new Map("src/edu/agray/maze/map/medium.txt");
-		active = new Turtle(map, 0, 3, map.getTileWidth(), map.getTileHeight());
+		active = new Turtle(map, 0, 11, map.getTileWidth(), map.getTileHeight());
 		
 	}
 	
