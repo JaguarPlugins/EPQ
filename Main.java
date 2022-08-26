@@ -12,8 +12,6 @@ public class Main extends Application {
 //	GLOBAL VARIABLES
 	public static final double WIDTH = 800, HEIGHT = 800;
 	
-	private Thread t;
-	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -28,8 +26,7 @@ public class Main extends Application {
 		
 //		Adding the runnable class to tick and render
 		Run run = new Run(g);
-		t = new Thread(run);
-		t.start();
+		run.start();
 		
 //		Create scene and add listeners
 		Scene scene = new Scene(placeholder);
@@ -53,8 +50,7 @@ public class Main extends Application {
 		primaryStage.setHeight(HEIGHT + 39);
 		primaryStage.setResizable(false);
 		primaryStage.setOnCloseRequest(e -> {
-			t.interrupt(); // terminates the thread when the window is closed
-			run.interrupt(); // stops main loop from running
+			run.stop();
 		});
 		primaryStage.show();
 		
