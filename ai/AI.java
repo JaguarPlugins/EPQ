@@ -43,9 +43,9 @@ public abstract class AI {
 		}
 		
 //		Debug printing
-		for (Tile t : output) {
-//			System.out.println("(" + t.getX() + ", " + t.getY() + ")");
-		}
+//		for (Tile t : output) {
+////			System.out.println("(" + t.getX() + ", " + t.getY() + ")");
+//		}
 		
 		return output;
 			
