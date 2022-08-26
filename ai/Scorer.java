@@ -20,11 +20,7 @@ public class Scorer extends AI {
 		int yPos = currentPosition.getY();
 
 //		Generates options of where the turtle can move
-		Tile[] options = generateOptions(map, 
-				map.getTile(xPos, yPos - 1), 
-				map.getTile(xPos + 1, yPos),
-				map.getTile(xPos, yPos + 1),
-				map.getTile(xPos - 1, yPos));
+		Tile[] options = generateOptions(map, currentPosition);
 		
 //		Dead end detection
 		if (options.length < 2) {
@@ -61,5 +57,8 @@ public class Scorer extends AI {
 		return equalOptions.get((int) (Math.random() * equalOptions.size())); 
 		
 	}
+
+	@Override
+	public void tick(Map map, Tile currentPosition) {}
 	
 }

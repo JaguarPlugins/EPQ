@@ -1,0 +1,59 @@
+package edu.agray.maze.ai;
+
+import java.util.ArrayList;
+
+import edu.agray.maze.map.Map;
+import edu.agray.maze.map.Tile;
+import edu.agray.maze.util.Direction;
+
+public class AStar extends AI {
+	
+	@Override
+	public void tick(Map map, Tile currentPosition) {
+		
+		Tile[] options = generateOptions(map, currentPosition);
+		
+//		This array will contain all the vertices that the turtle could move to by moving in a straight line
+		ArrayList<Tile> vertices = new ArrayList<Tile>();
+		for (Tile loopTile : options) {
+			
+			Tile focus = loopTile;
+			Direction direction = Direction.Calculate(currentPosition, loopTile); // works out which direction the line of sight is in
+			
+			while (map.getTile(focus, direction) != null) {
+				
+				Tile next = map.getTile(focus, direction);
+				if (next.isSolid()) {
+					break;
+				}
+				focus = next;
+				
+			}
+			
+			vertices.add(focus);
+			
+		}
+		
+	}
+	
+	@Override
+	public Tile nextMove(Map map, Tile currentPosition) {
+		
+		
+		
+		return null;
+	
+	}
+	
+	private double heuristic(Map map, Tile node, Tile goal) {
+		
+		int dx = Math.abs(node.getX() - goal.getX());
+		int dy = Math.abs(node.getY() - goal.getY());
+//		When doing the setups for the tile scoring system I did not realise that in AStar the lowest score is the best value,
+//		Doing 1 - the fraction converts it into the style of my tile structure
+		return 1 - (1/(map.getMapTileWidth() + map.getMapTileHeight())) * (dx + dy);
+//		As a side effect of this reciprocation, the score will have a greater effect the close the AI gets to the target
+		
+	}
+
+}

@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import edu.agray.maze.Main;
+import edu.agray.maze.util.Direction;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -42,6 +43,20 @@ public class Map {
 		return tiles[y][x];
 		
 	}
+	
+	public Tile getTile(Tile oldTile, Direction direction) {
+		
+		int y = oldTile.getY() + direction.getDy();
+		int x = oldTile.getX() + direction.getDx();
+		
+		if (x < 0 || y < 0 || x >= tiles[0].length || y >= tiles.length) {
+			return null;
+		}
+		
+		return tiles[y][x];
+		
+	}
+	
 	
 	public boolean checkCollision(int xPos, int yPos) {
 		
@@ -135,6 +150,14 @@ public class Map {
 			return tileWidth;
 		} 
 		return tileHeight;
+	}
+	
+	public int getMapTileWidth() {
+		return tiles.length;
+	}
+	
+	public int getMapTileHeight() {
+		return tiles[0].length;
 	}
 	
 }

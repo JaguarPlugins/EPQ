@@ -8,12 +8,19 @@ import edu.agray.maze.map.Tile;
 
 public abstract class AI {
 	
-	protected Tile[] generateOptions(Map map, Tile up, Tile right, Tile down, Tile left) {
+	protected Tile[] generateOptions(Map map, Tile currentPosition) {
 //		Takes all the tiles adjacent to the tile and returns a list of all the possible options
 		
-//		System.out.println("Options:");
+		int xPos = currentPosition.getX();
+		int yPos = currentPosition.getY();
+
+//		Generates options of where the turtle can move
+		Tile[] tiles = {
+				map.getTile(xPos, yPos - 1), 
+				map.getTile(xPos + 1, yPos),
+				map.getTile(xPos, yPos + 1),
+				map.getTile(xPos - 1, yPos)};
 		
-		Tile[] tiles = {up, right, down, left};
 		
 		ArrayList<Tile> tileList = new ArrayList<Tile>();
 		
@@ -42,15 +49,12 @@ public abstract class AI {
 			output[i] = tileList.get(i);
 		}
 		
-//		Debug printing
-//		for (Tile t : output) {
-////			System.out.println("(" + t.getX() + ", " + t.getY() + ")");
-//		}
-		
 		return output;
 			
 	}
 	
 	public abstract Tile nextMove(Map map, Tile currentPosition);
+	
+	public abstract void tick(Map map, Tile currentPosition);
 	
 }
