@@ -11,7 +11,7 @@ public abstract class AI {
 	protected Tile[] generateOptions(Map map, Tile up, Tile right, Tile down, Tile left) {
 //		Takes all the tiles adjacent to the tile and returns a list of all the possible options
 		
-		System.out.println("Options:");
+//		System.out.println("Options:");
 		
 		Tile[] tiles = {up, right, down, left};
 		
@@ -44,7 +44,7 @@ public abstract class AI {
 		
 //		Debug printing
 		for (Tile t : output) {
-			System.out.println("(" + t.getX() + ", " + t.getY() + ")");
+//			System.out.println("(" + t.getX() + ", " + t.getY() + ")");
 		}
 		
 		return output;

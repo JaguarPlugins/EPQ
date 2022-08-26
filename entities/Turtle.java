@@ -9,16 +9,29 @@ import javafx.scene.paint.Color;
 public class Turtle extends Entity {
 
 	private Scorer aI;
+	private long startTime;
+	private boolean win;
 	
 	public Turtle(Map map, int x, int y, double width, double height) {
 		super(map, x, y, width, height);
 		aI = new Scorer();
+		
+//		Timer detection
+		win = false;
+		startTime = System.currentTimeMillis();
 	}
 
 	@Override
 	public void tick() {
 		
 		if (map.getTile(x, y).getScore() >= 1) {
+		
+			if (!win) {
+				long time = System.currentTimeMillis() - startTime;
+				System.out.println("Time: " + (int) ((time/1000) / 60) + ":" + (int) Math.floorMod(time/1000, 60) + "." + (int) Math.floorMod(time, 1000));
+				win = true;
+			}
+			
 			return;
 		}
 		Tile newTile = aI.nextMove(map, map.getTile(x, y));

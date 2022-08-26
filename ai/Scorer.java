@@ -31,7 +31,7 @@ public class Scorer extends AI {
 		
 		if (deadEnd) {
 			if (options.length > 1) {
-				System.out.println("DISABLING DEAD END");
+//				System.out.println("DISABLING DEAD END");
 				deadEnd = false;
 			} else {
 				map.getTile(xPos, yPos).setScore(0);
