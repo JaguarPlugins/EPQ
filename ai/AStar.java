@@ -12,8 +12,10 @@ public class AStar extends AI {
 	
 	private Queue<Tile> queue;
 	private Tile ghostPos;
+	private Tile goal;
 	
-	public AStar(Map map, Tile startTile) {
+	public AStar(Map map, Tile startTile, Tile goal) {
+		this.goal = goal;
 		queue = new LinkedList<Tile>();
 		ghostPos = startTile;
 		calculateJunctions(map);
@@ -48,10 +50,17 @@ public class AStar extends AI {
 			
 		}
 		
-		int rando = (int) (Math.random() * vertices.size());
-		trackRoute(map, ghostPos, vertices.get(rando));
-		ghostPos = vertices.get(rando);
-		System.out.println(ghostPos);
+		Tile bestTile = vertices.get(0);
+		for (Tile tile : vertices) {
+			double newCost = heuristic(map, tile, map.getGoalTile());
+			double bestCost = heuristic(map, bestTile, map.getGoalTile());
+			if (newCost < bestCost) {
+				bestTile = tile;
+			}
+		}
+		
+		trackRoute(map, ghostPos, bestTile);
+		ghostPos = bestTile;
 		
 	}
 	
@@ -67,9 +76,13 @@ public class AStar extends AI {
 		
 		int dx = Math.abs(node.getX() - goal.getX());
 		int dy = Math.abs(node.getY() - goal.getY());
+		
+		return dx + dy;
+		
+//		CODE FOR USING HIGHER SCORE AND MORE FAVOURABLE
 //		When doing the setups for the tile scoring system I did not realise that in AStar the lowest score is the best value,
 //		Doing 1 - the fraction converts it into the style of my tile structure
-		return 1 - (1/(map.getMapTileWidth() + map.getMapTileHeight())) * (dx + dy);
+//		return 1 - (1/(map.getMapTileWidth() + map.getMapTileHeight())) * (dx + dy);
 //		As a side effect of this reciprocation, the score will have a greater effect the close the AI gets to the target
 		
 	}

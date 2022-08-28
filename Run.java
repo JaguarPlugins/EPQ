@@ -18,7 +18,7 @@ public class Run extends AnimationTimer {
 		super();
 		this.g = g;
 		
-		map = new Map("src/edu/agray/maze/map/medium.txt");
+		map = new Map("src/edu/agray/maze/map/medium.txt", 37, 0);
 		active = new Turtle(map, 3, 5, map.getTileWidth(), map.getTileHeight());
 		lastTime = 0;
 		
@@ -27,7 +27,7 @@ public class Run extends AnimationTimer {
 	@Override
 	public void handle(long now) {
 		
-		if (now - lastTime > 1_000_000) {
+		if (now - lastTime > 300_000_000) {
 			tick();
 			render();
 			lastTime = now;

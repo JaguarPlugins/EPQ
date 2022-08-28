@@ -18,9 +18,12 @@ public class Map {
 
 	private Tile[][] tiles; // NOTE: DUE TO READING OF FILES, X AND Y ARE THE WRONG WAY AROUND. WILL CORRECT IN GETTERS
 	private double tileWidth, tileHeight;
+	private int endX, endY;
 	
-	public Map(String fileName) {
+	public Map(String fileName, int endX, int endY) {
 		
+		this.endX = endX;
+		this.endY = endY;
 		tiles = loadMap(fileName);
 		
 	}
@@ -162,6 +165,10 @@ public class Map {
 	
 	public int getMapTileHeight() {
 		return tiles[0].length;
+	}
+	
+	public Tile getGoalTile() {
+		return tiles[endY][endX];
 	}
 	
 }
