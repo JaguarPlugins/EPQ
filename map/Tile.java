@@ -9,7 +9,8 @@ public class Tile {
 	private double score;
 	private int x, y;
 	private double width, height;
-	
+	private boolean junction = false;
+
 	public Tile(boolean solid, int x, int y, double width, double height, double score) {
 
 		this.solid = solid; // determines whether or not the player can move through this tile
@@ -66,6 +67,14 @@ public class Tile {
 	
 	public void setScore(double score) {
 		this.score = score;
+	}
+	
+	public boolean isJunction() {
+		return junction;
+	}
+
+	public void setJunction(boolean junction) {
+		this.junction = junction;
 	}
 
 	public void punish() {

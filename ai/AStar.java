@@ -13,9 +13,10 @@ public class AStar extends AI {
 	private Queue<Tile> queue;
 	private Tile ghostPos;
 	
-	public AStar(Tile startTile) {
+	public AStar(Map map, Tile startTile) {
 		queue = new LinkedList<Tile>();
 		ghostPos = startTile;
+		calculateJunctions(map);
 	}
 	
 	@Override
@@ -35,6 +36,9 @@ public class AStar extends AI {
 				Tile next = map.getTile(focus, direction);
 				if (next.isSolid()) {
 					break;
+				}
+				if (next.isJunction()) {
+					vertices.add(next);
 				}
 				focus = next;
 				
@@ -79,6 +83,18 @@ public class AStar extends AI {
 			head = map.getTile(head, direction);
 			queue.add(head);
 		} while (!head.equals(end));
+		
+	}
+	
+	private void calculateJunctions(Map map) {
+		
+		for (Tile[] column : map.getMasterArray()) {
+			for (Tile row : column) {
+				if (generateOptions(map, row).length > 2) {
+					row.setJunction(true);
+				}
+			}
+		}
 		
 	}
 

@@ -58,6 +58,10 @@ public class Map {
 	}
 	
 	
+	public Tile[][] getMasterArray() {
+		return tiles;
+	}
+
 	public boolean checkCollision(int xPos, int yPos) {
 		
 		// if player is outside the map
