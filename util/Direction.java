@@ -19,7 +19,6 @@ public class Direction {
 		
 	}
 	
-	
 //	CLASS SETUP
 	private int dx, dy;
 	
