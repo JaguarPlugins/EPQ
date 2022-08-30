@@ -45,7 +45,7 @@ public class Tile {
 		} else if (deadEnd) {
 			g.setFill(Color.DARKBLUE);
 		} else {
-			g.setFill(Color.hsb(240.0, score, 1));
+			g.setFill(Color.hsb(240.0, 1/score, 1));
 		}
 		
 		g.fillRect(x*width, y*width, width, height);

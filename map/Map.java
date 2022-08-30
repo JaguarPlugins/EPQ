@@ -167,4 +167,8 @@ public class Map {
 		return tiles[endY][endX];
 	}
 	
+	public Tile[][] getMasterArray(){
+		return tiles;
+	}
+	
 }

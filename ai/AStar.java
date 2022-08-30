@@ -5,30 +5,40 @@ import edu.agray.maze.map.Tile;
 
 public class AStar extends AI {
 	
-	private Tile goal;
-	
-	public AStar(Map map, Tile goal) {
-		this.goal = goal;
+	public AStar(Map map, Tile startTile) {
+		
+		for (Tile[] row : map.getMasterArray()) {
+			for (Tile column : row) {
+				column.setScore(manhatten(map, startTile, column) + manhatten(map, column, map.getGoalTile()));
+			}
+		}
+		
 	}
 	
 	@Override
 	public void tick(Map map, Tile currentPosition) {
 		
+		Tile [] options = generateOptions(map, currentPosition);
 		
+		for (Tile tile : options) {
+			tile.setScore(1 + manhatten(map, tile, map.getGoalTile()));
+		}
 		
 	}
 	
 	@Override
 	public Tile nextMove(Map map, Tile currentPosition) {
 		
-		return null;
+		Tile[] options = generateOptions(map, currentPosition);
+		
+		return options[0];
 	
 	}
 	
-	private double heuristic(Map map, Tile node, Tile goal) {
+	private double manhatten(Map map, Tile start, Tile end) {
 		
-		int dx = Math.abs(node.getX() - goal.getX());
-		int dy = Math.abs(node.getY() - goal.getY());
+		int dx = Math.abs(start.getX() - end.getX());
+		int dy = Math.abs(start.getY() - end.getY());
 		
 		return dx + dy;
 		

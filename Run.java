@@ -27,7 +27,7 @@ public class Run extends AnimationTimer {
 	@Override
 	public void handle(long now) {
 		
-		if (now - lastTime > 1_000) {
+		if (now - lastTime > 500_000_000) {
 			tick();
 			render();
 			lastTime = now;

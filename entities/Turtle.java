@@ -1,7 +1,7 @@
 package edu.agray.maze.entities;
 
 import edu.agray.maze.ai.AI;
-import edu.agray.maze.ai.Scorer;
+import edu.agray.maze.ai.AStar;
 import edu.agray.maze.map.Map;
 import edu.agray.maze.map.Tile;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,8 +15,8 @@ public class Turtle extends Entity {
 	
 	public Turtle(Map map, int x, int y, double width, double height) {
 		super(map, x, y, width, height);
-//		aI = new AStar(map, map.getTile(x, y), map.getTile(x, y));
-		aI = new Scorer();
+		aI = new AStar(map, map.getTile(x, y));
+//		aI = new Scorer();
 		
 //		Timer detection
 		startTime = System.currentTimeMillis();
