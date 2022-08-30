@@ -22,9 +22,9 @@ public class Map {
 	
 	public Map(String fileName, int endX, int endY) {
 		
+		tiles = loadMap(fileName);
 		this.endX = endX;
 		this.endY = endY;
-		tiles = loadMap(fileName);
 		
 	}
 	
@@ -47,6 +47,7 @@ public class Map {
 		
 	}
 	
+//	Left in just in case it is needed. Probably will not be
 	public Tile getTile(Tile oldTile, Direction direction) {
 		
 		int y = oldTile.getY() + direction.getDy();
@@ -60,11 +61,6 @@ public class Map {
 		
 	}
 	
-	
-	public Tile[][] getMasterArray() {
-		return tiles;
-	}
-
 	public boolean checkCollision(int xPos, int yPos) {
 		
 		// if player is outside the map

@@ -11,7 +11,7 @@ public class Turtle extends Entity {
 
 	private AI aI;
 	private long startTime;
-	private boolean win;
+	private boolean win = false;
 	
 	public Turtle(Map map, int x, int y, double width, double height) {
 		super(map, x, y, width, height);
@@ -19,22 +19,24 @@ public class Turtle extends Entity {
 		aI = new Scorer();
 		
 //		Timer detection
-		win = false;
 		startTime = System.currentTimeMillis();
 	}
 
 	@Override
 	public void tick() {
 		
+//		Checks to see if the game is over
 		if (map.getTile(x, y).isGoal()) {
 		
 			if (!win) {
+//				Displays timer
 				long time = System.currentTimeMillis() - startTime;
 				System.out.println("Time: " + (int) ((time/1000) / 60) + ":" + (int) Math.floorMod(time/1000, 60) + "." + (int) Math.floorMod(time, 1000));
 				win = true;
 			}
 			
 			return;
+			
 		}
 		
 		aI.tick(map, map.getTile(x, y));
@@ -52,7 +54,5 @@ public class Turtle extends Entity {
 		g.fillOval(x*width, y*height, width, height);
 		
 	}
-
-//	This is the entity controlled by the AI as opposed to the player
 
 }

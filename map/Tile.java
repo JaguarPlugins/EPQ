@@ -9,14 +9,13 @@ public class Tile {
 	private double score;
 	private int x, y;
 	private double width, height;
-	private boolean junction = false;
-	private boolean goal;
+	private boolean isGoal;
 	private boolean deadEnd = false;
 	
-	public Tile(boolean solid, int x, int y, double width, double height, boolean goal) {
+	public Tile(boolean solid, int x, int y, double width, double height, boolean isGoal) {
 
 		this.solid = solid; // determines whether or not the player can move through this tile
-		this.goal = goal;
+		this.isGoal = isGoal;
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -28,7 +27,7 @@ public class Tile {
 
 		this.solid = solid; // determines whether or not the player can move through this tile
 		if (solid) {
-			score = Double.MAX_VALUE; // solid blocks have a score of 0 as the AI will never move there
+			score = Double.MAX_VALUE; // just in case the AI tries to move to the tile, it has the worst score possible
 		} else {
 			score = 0.5; // we will start off all tiles as having a score of 0.5 and then adjust those values as the player moves
 		}
@@ -44,9 +43,9 @@ public class Tile {
 		if (solid) {
 			g.setFill(Color.BLACK); // Black indicates the block is solid
 		} else if (deadEnd) {
-			g.setFill(Color.ORANGE);
+			g.setFill(Color.DARKBLUE);
 		} else {
-			g.setFill(Color.rgb((int) (255*(1-score)), (int) (255*(1-score)), 255)); // will change the colour of the block depending on its score
+			g.setFill(Color.hsb(240.0, score, 1));
 		}
 		
 		g.fillRect(x*width, y*width, width, height);
@@ -66,7 +65,7 @@ public class Tile {
 	}
 
 	public boolean isGoal() {
-		return goal;
+		return isGoal;
 	}
 	
 	public double getScore() {
@@ -75,14 +74,6 @@ public class Tile {
 	
 	public void setScore(double score) {
 		this.score = score;
-	}
-	
-	public boolean isJunction() {
-		return junction;
-	}
-
-	public void setJunction(boolean junction) {
-		this.junction = junction;
 	}
 	
 	public boolean isDeadEnd() {
