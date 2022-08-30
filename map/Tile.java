@@ -10,25 +10,27 @@ public class Tile {
 	private int x, y;
 	private double width, height;
 	private boolean junction = false;
-
-	public Tile(boolean solid, int x, int y, double width, double height, double score) {
+	private boolean goal;
+	private boolean deadEnd = false;
+	
+	public Tile(boolean solid, int x, int y, double width, double height, boolean goal) {
 
 		this.solid = solid; // determines whether or not the player can move through this tile
-		this.score = score;
+		this.goal = goal;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		
 	}
-	
+
 	public Tile(boolean solid, int x, int y, double width, double height) {
 
 		this.solid = solid; // determines whether or not the player can move through this tile
 		if (solid) {
-			score = 0; // solid blocks have a score of 0 as the AI will never move there
+			score = Double.MAX_VALUE; // solid blocks have a score of 0 as the AI will never move there
 		} else {
-			score = 0.7; // we will start off all tiles as having a score of 0.5 and then adjust those values as the player moves
+			score = 0.5; // we will start off all tiles as having a score of 0.5 and then adjust those values as the player moves
 		}
 		this.x = x;
 		this.y = y;
@@ -41,6 +43,8 @@ public class Tile {
 		
 		if (solid) {
 			g.setFill(Color.BLACK); // Black indicates the block is solid
+		} else if (deadEnd) {
+			g.setFill(Color.ORANGE);
 		} else {
 			g.setFill(Color.rgb((int) (255*(1-score)), (int) (255*(1-score)), 255)); // will change the colour of the block depending on its score
 		}
@@ -61,6 +65,10 @@ public class Tile {
 		return solid;
 	}
 
+	public boolean isGoal() {
+		return goal;
+	}
+	
 	public double getScore() {
 		return score;
 	}
@@ -76,19 +84,21 @@ public class Tile {
 	public void setJunction(boolean junction) {
 		this.junction = junction;
 	}
+	
+	public boolean isDeadEnd() {
+		return deadEnd;
+	}
+
+	public void setDeadEnd(boolean deadEnd) {
+		this.deadEnd = deadEnd;
+	}
 
 	public void punish() {
-		score = score*0.9;
-		if (score < 0) {
-			score = 0;
-		}
+		score = score*1.1;
 	}
 	
 	public void reward() {
-		score = score*1.1;
-		if (score > 1) {
-			score = 1;
-		}
+		score = score*0.9;
 	}
 	
 	@Override

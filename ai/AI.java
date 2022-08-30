@@ -26,7 +26,7 @@ public abstract class AI {
 		
 		for (Tile t : tiles) {
 			if (t != null) {
-				if (!t.isSolid() && t.getScore() > 0) {
+				if (!t.isSolid() && !t.isDeadEnd()) {
 					tileList.add(t);
 				}
 			}
@@ -38,7 +38,7 @@ public abstract class AI {
 
 			@Override
 			public int compare(Tile t1, Tile t2) {
-				return -Double.toString(t1.getScore()).compareTo(Double.toString(t2.getScore()));
+				return Double.toString(t1.getScore()).compareTo(Double.toString(t2.getScore()));
 			}
 			
 		});

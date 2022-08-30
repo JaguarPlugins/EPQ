@@ -31,7 +31,7 @@ public class Scorer extends AI {
 			if (options.length > 1) {
 				deadEnd = false;
 			} else {
-				map.getTile(xPos, yPos).setScore(0);
+				map.getTile(xPos, yPos).setDeadEnd(true);
 			}
 			
 		} else {
@@ -45,9 +45,9 @@ public class Scorer extends AI {
 		
 //		Putting all equally valuable tiles in to 1 list to avoid bias to top right
 		ArrayList<Tile> equalOptions = new ArrayList<Tile>();
-		double topScore = options[0].getScore();
+		double bestScore = options[0].getScore();
 		for (Tile tile : options) {
-			if (tile.getScore() == topScore) {
+			if (tile.getScore() == bestScore) {
 				equalOptions.add(tile);
 			} else {
 				break;

@@ -106,7 +106,7 @@ public class Map {
 //					TODO generate height separately for when it isn't a square.
 					
 					if (charList[x] == '2') {
-						tileList[x] = new Tile((charList[x] == '1'), x, y, width, width, 1);
+						tileList[x] = new Tile((charList[x] == '1'), x, y, width, width, true);
 					} else {
 						tileList[x] = new Tile((charList[x] == '1'), x, y, width, width);
 					}
