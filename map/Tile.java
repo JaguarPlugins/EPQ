@@ -77,6 +77,14 @@ public class Tile {
 		return y;
 	}
 
+	public double getWidth() {
+		return width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+	
 	public boolean isSolid() {
 		return solid;
 	}
