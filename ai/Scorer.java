@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import edu.agray.maze.map.Map;
 import edu.agray.maze.map.Tile;
+import javafx.scene.canvas.GraphicsContext;
 
 public class Scorer extends AI {
 
@@ -60,6 +61,12 @@ public class Scorer extends AI {
 //		Increases the score of tiles that it has already passed to decrease the chance of going back there
 		currentPosition.punish();
 		return equalOptions.get((int) (Math.random() * equalOptions.size())); 
+		
+	}
+
+	@Override
+	public void render(GraphicsContext g) {
+		// TODO Auto-generated method stub
 		
 	}
 	

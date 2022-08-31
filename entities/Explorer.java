@@ -6,32 +6,46 @@ import edu.agray.maze.map.Map;
 import edu.agray.maze.map.Tile;
 import edu.agray.maze.util.Direction;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class Explorer extends Entity {
 
 	private Direction direction;
 	private Tile position;
+	private ArrayList<Tile> path;
 	
 	public Explorer(Map map, Tile position, Direction direction) {
 		
 		super(map, position.getX(), position.getY(), position.getWidth(), position.getHeight());
 		this.direction = direction;
 		this.position = position;
+		path = new ArrayList<Tile>();
+		path.add(position);
+		
+	}
+	
+	public Explorer(Map map, Tile position, Direction direction, ArrayList<Tile> oldPath) {
+		
+		super(map, position.getX(), position.getY(), position.getWidth(), position.getHeight());
+		this.direction = direction;
+		this.position = position;
+		path = oldPath;
+		path.add(position);
 		
 	}
 
-	public ArrayList<Explorer> advance(Tile[] options, ArrayList<Explorer> scouts) {
-		
-		ArrayList<Explorer> output = new ArrayList<Explorer>(); //list to be returned
+	public Explorer advance(Tile[] options, ArrayList<Explorer> scouts) {
 		
 //		Goes through options to see if any new scouts need to be created
 		boolean canContinue = false;
-		for (Tile adjacent : getVertices(position, options)) {
+		ArrayList<Tile> vertices = getVertices(position, options);
+		for (Tile adjacent : vertices) {
 			Direction newDirection = Direction.Calculate(position, adjacent);
 			if (!newDirection.follows(direction.inverse())) {
-				output.add(new Explorer(map, adjacent, newDirection));
+				scouts.add(new Explorer(map, adjacent, newDirection, path));
 			} else {
 				position = adjacent;
+				path.add(position);
 				canContinue = true;
 			}
 		}
@@ -41,10 +55,10 @@ public class Explorer extends Entity {
 		}
 		
 		if (position.equals(map.getGoalTile())) {
-			return null;
+			return this;
 		}
 		
-		return output;
+		return null;
 		
 	}
 
@@ -56,7 +70,8 @@ public class Explorer extends Entity {
 
 	@Override
 	public void render(GraphicsContext g) {
-
+		g.setFill(Color.GREEN);
+		g.fillOval(x*width, y*height, width, height);
 	}
 
 	private ArrayList<Tile> getVertices(Tile currentPosition, Tile[] options) {
@@ -68,10 +83,10 @@ public class Explorer extends Entity {
 			Tile focus = loopTile;
 			Direction direction = Direction.Calculate(currentPosition, loopTile); // works out which direction the line of sight is in
 			
-			while (!map.getTile(focus, direction).isSolid()) {
+			while (map.getTile(focus, direction) != null) {
 				
 				Tile next = map.getTile(focus, direction);
-				if (next == null) {
+				if (next.isSolid()) {
 					break;
 				}
 				if (next.isJunction()) {
@@ -91,6 +106,10 @@ public class Explorer extends Entity {
 	
 	public Tile getPosition() {
 		return position;
+	}
+	
+	public ArrayList<Tile> getPath() {
+		return path;
 	}
 	
 }

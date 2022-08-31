@@ -5,6 +5,7 @@ import java.util.Comparator;
 
 import edu.agray.maze.map.Map;
 import edu.agray.maze.map.Tile;
+import javafx.scene.canvas.GraphicsContext;
 
 public abstract class AI {
 	
@@ -56,5 +57,7 @@ public abstract class AI {
 	public abstract Tile nextMove(Map map, Tile currentPosition);
 	
 	public abstract void tick(Map map, Tile currentPosition);
+	
+	public abstract void render(GraphicsContext g);
 	
 }

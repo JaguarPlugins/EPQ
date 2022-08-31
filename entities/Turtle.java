@@ -56,6 +56,8 @@ public class Turtle extends Entity {
 		g.setFill(Color.RED);
 		g.fillOval(x*width, y*height, width, height);
 		
+		main.render(g);
+		
 	}
 
 }
