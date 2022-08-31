@@ -29,17 +29,14 @@ public class Direction {
 
 	public Direction inverse() {
 		
-		dx = -dx;
-		dy = -dy;
-		
-		return this;
+		return new Direction(-dx, -dy);
 		
 	}
 	
 	public boolean follows(Direction direction) {
 
 //		Instead of the .equals function this will determine if 2 direction objects go the same way
-		return (direction.dx == dx && direction.dy == dy);
+		return (direction.getDx() == this.dx && direction.getDy() == this.dy);
 
 	}
 	

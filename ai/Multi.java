@@ -4,23 +4,21 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import edu.agray.maze.entities.Explorer;
 import edu.agray.maze.map.Map;
 import edu.agray.maze.map.Tile;
 import edu.agray.maze.util.Direction;
+import edu.agray.maze.util.Explorer;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Multi extends AI {
 
 	private ArrayList<Explorer> scouts;
-	private Explorer solution;
 	private Queue<Tile> queue;
 	private Tile backOfQueue;
 	
 	public Multi() {
 		
 		scouts = new ArrayList<Explorer>();
-		solution = null;
 		queue = new LinkedList<Tile>();
 		
 	}
@@ -42,31 +40,31 @@ public class Multi extends AI {
 			
 		}
 
-		if (solution == null) {
+		ArrayList<Explorer> children = new ArrayList<Explorer>();
 
-			for (Explorer scout : scouts) {
-				solution = scout.advance(generateOptions(map, scout.getPosition()), scouts);
-				if (solution != null) {
-					System.out.println("EXIT FOUND");
-					
-//					Adds all the saved moves from the winning explorer to the queue
-					for (Tile vertex : solution.getPath()) {
-						trackRoute(map, backOfQueue, vertex);
-						backOfQueue = vertex;
-					}
-					
-					return;
-				}
-			}
-
+		for (Explorer scout : scouts) {
+			children.addAll(scout.generateChildren(generateOptions(map, scout.getPosition())));
+//			if (solution != null) {
+//				System.out.println("EXIT FOUND");
+//
+//				//					Adds all the saved moves from the winning explorer to the queue
+//				for (Tile vertex : solution.getPath()) {
+//					trackRoute(map, backOfQueue, vertex);
+//					backOfQueue = vertex;
+//				}
+//
+//				return;
+//			}
 		}
+		
+		scouts = children;
 		
 	}
 	
 	@Override
 	public Tile nextMove(Map map, Tile currentPosition) {
 
-		if (solution != null) {
+		if (!queue.isEmpty()) {
 			return queue.poll();
 		}
 		
@@ -101,15 +99,11 @@ public class Multi extends AI {
 
 	@Override
 	public void render(GraphicsContext g) {
-		
-		if (solution == null) {
 
-			for (Explorer scout : scouts) {
-				scout.render(g);
-			}
-		
+		for (Explorer scout : scouts) {
+			scout.render(g);
 		}
-		
+
 	}
 	
 }

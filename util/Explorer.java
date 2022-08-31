@@ -1,22 +1,22 @@
-package edu.agray.maze.entities;
+package edu.agray.maze.util;
 
 import java.util.ArrayList;
 
 import edu.agray.maze.map.Map;
 import edu.agray.maze.map.Tile;
-import edu.agray.maze.util.Direction;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Explorer extends Entity {
+public class Explorer {
 
+	private Map map;
 	private Direction direction;
 	private Tile position;
 	private ArrayList<Tile> path;
 	
 	public Explorer(Map map, Tile position, Direction direction) {
 		
-		super(map, position.getX(), position.getY(), position.getWidth(), position.getHeight());
+		this.map = map;
 		this.direction = direction;
 		this.position = position;
 		path = new ArrayList<Tile>();
@@ -26,7 +26,7 @@ public class Explorer extends Entity {
 	
 	public Explorer(Map map, Tile position, Direction direction, ArrayList<Tile> oldPath) {
 		
-		super(map, position.getX(), position.getY(), position.getWidth(), position.getHeight());
+		this.map = map;
 		this.direction = direction;
 		this.position = position;
 		path = oldPath;
@@ -34,44 +34,28 @@ public class Explorer extends Entity {
 		
 	}
 
-	public Explorer advance(Tile[] options, ArrayList<Explorer> scouts) {
+	public ArrayList<Explorer> generateChildren(Tile[] options) {
+		
+		ArrayList<Explorer> output = new ArrayList<Explorer>(); // list to be returned
 		
 //		Goes through options to see if any new scouts need to be created
-		boolean canContinue = false;
 		ArrayList<Tile> vertices = getVertices(position, options);
+		System.out.println("Vertices: " + vertices);
 		for (Tile adjacent : vertices) {
+			
 			Direction newDirection = Direction.Calculate(position, adjacent);
 			if (!newDirection.follows(direction.inverse())) {
-				scouts.add(new Explorer(map, adjacent, newDirection, path));
-			} else {
-				position = adjacent;
-				path.add(position);
-				canContinue = true;
+				output.add(new Explorer(map, adjacent, newDirection, path));
 			}
+			
 		}
-		
-		if (!canContinue) {
-			scouts.remove(this);
-		}
-		
+
 		if (position.equals(map.getGoalTile())) {
-			return this;
+//			TODO work out what to do when reaching goal
 		}
 		
-		return null;
+		return output;
 		
-	}
-
-	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void render(GraphicsContext g) {
-		g.setFill(Color.GREEN);
-		g.fillOval(x*width, y*height, width, height);
 	}
 
 	private ArrayList<Tile> getVertices(Tile currentPosition, Tile[] options) {
@@ -82,6 +66,10 @@ public class Explorer extends Entity {
 			
 			Tile focus = loopTile;
 			Direction direction = Direction.Calculate(currentPosition, loopTile); // works out which direction the line of sight is in
+			
+			if (focus.isJunction()) {
+				vertices.add(focus);
+			}
 			
 			while (map.getTile(focus, direction) != null) {
 				
@@ -104,12 +92,22 @@ public class Explorer extends Entity {
 		
 	}
 	
+	public void render(GraphicsContext g) {
+		g.setFill(Color.GREEN);
+		g.fillOval(position.getX()*position.getWidth(), position.getY()*position.getHeight(), position.getWidth(), position.getHeight());
+	}
+	
 	public Tile getPosition() {
 		return position;
 	}
 	
 	public ArrayList<Tile> getPath() {
 		return path;
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + position.getX() + ", " + position.getY() + ")";
 	}
 	
 }
