@@ -20,9 +20,11 @@ public class Multi extends AI {
 	@Override
 	public void tick(Map map, Tile currentPosition) {
 		
+//		At the start, creates one explorer that will go on to make more explorers
 		if (scouts.size() == 0) {
 			
-//			At the start, creates one explorer that will go on to make more explorers
+//			Works out all the junctions so that the explorers know where to go
+			calculateJunctions(map);
 			
 //			Works out direction that first explorer must move in
 			Tile firstStep = generateOptions(map, currentPosition)[0];
@@ -48,4 +50,16 @@ public class Multi extends AI {
 		return null;
 	}
 
+	private void calculateJunctions(Map map) {
+		
+		for (Tile[] column : map.getMasterArray()) {
+			for (Tile row : column) {
+				if (generateOptions(map, row).length > 2) {
+					row.setJunction(true);
+				}
+			}
+		}
+		
+	}
+	
 }

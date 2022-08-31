@@ -13,6 +13,7 @@ public class Tile {
 	private int x, y;
 	private double width, height;
 	private boolean isGoal;
+	private boolean junction = false;
 	private boolean deadEnd = false;
 	private int timesVisited = 0;
 
@@ -109,6 +110,14 @@ public class Tile {
 		this.deadEnd = deadEnd;
 	}
 	
+	public boolean isJunction() {
+		return junction;
+	}
+
+	public void setJunction(boolean junction) {
+		this.junction = junction;
+	}
+
 	public void visit() {
 		timesVisited++;
 	}

@@ -27,6 +27,22 @@ public class Direction {
 		this.dy = dy;
 	}
 
+	public Direction inverse() {
+		
+		dx = -dx;
+		dy = -dy;
+		
+		return this;
+		
+	}
+	
+	public boolean follows(Direction direction) {
+
+//		Instead of the .equals function this will determine if 2 direction objects go the same way
+		return (direction.dx == dx && direction.dy == dy);
+
+	}
+	
 	public int getDx() {
 		return dx;
 	}

@@ -24,22 +24,24 @@ public class Explorer extends Entity {
 		
 		ArrayList<Explorer> output = new ArrayList<Explorer>(); //list to be returned
 		
-		Tile nextTile = map.getTile(position, direction); // works out the next tile THIS scout needs to move to
-		
 //		Goes through options to see if any new scouts need to be created
-		for (Tile adjacent : options) {
-			if (adjacent.equals(nextTile)) {
-				output.add(new Explorer(map, adjacent, Direction.Calculate(position, adjacent)));
+		boolean canContinue = false;
+		for (Tile adjacent : getVertices(position, options)) {
+			Direction newDirection = Direction.Calculate(position, adjacent);
+			if (!newDirection.follows(direction.inverse())) {
+				output.add(new Explorer(map, adjacent, newDirection));
+			} else {
+				position = adjacent;
+				canContinue = true;
 			}
 		}
 		
-		if (nextTile != null && !nextTile.isSolid()) {
-			position = map.getTile(position, direction);
-			if (position.equals(map.getGoalTile())) {
-				return null;
-			}
-		} else {
+		if (!canContinue) {
 			scouts.remove(this);
+		}
+		
+		if (position.equals(map.getGoalTile())) {
+			return null;
 		}
 		
 		return output;
@@ -57,6 +59,36 @@ public class Explorer extends Entity {
 
 	}
 
+	private ArrayList<Tile> getVertices(Tile currentPosition, Tile[] options) {
+		
+//		This array will contain all the vertices that the explorer could move to by moving in a straight line
+		ArrayList<Tile> vertices = new ArrayList<Tile>();
+		for (Tile loopTile : options) {
+			
+			Tile focus = loopTile;
+			Direction direction = Direction.Calculate(currentPosition, loopTile); // works out which direction the line of sight is in
+			
+			while (!map.getTile(focus, direction).isSolid()) {
+				
+				Tile next = map.getTile(focus, direction);
+				if (next == null) {
+					break;
+				}
+				if (next.isJunction()) {
+					vertices.add(next);
+				}
+				focus = next;
+				
+			}
+			
+			vertices.add(focus);
+			
+		}
+		
+		return vertices;
+		
+	}
+	
 	public Tile getPosition() {
 		return position;
 	}
