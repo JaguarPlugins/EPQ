@@ -26,41 +26,45 @@ public class Multi extends AI {
 	@Override
 	public void tick(Map map, Tile currentPosition) {
 		
-//		At the start, creates one explorer that will go on to make more explorers
-		if (scouts.size() == 0) {
-			
-//			Works out all the junctions so that the explorers know where to go
-			calculateJunctions(map);
-//			Saves the starting tile
-			backOfQueue = currentPosition;
-			
-//			Works out direction that first explorer must move in
-			Tile firstStep = generateOptions(map, currentPosition)[0];
-			scouts.add(new Explorer(map, currentPosition, Direction.Calculate(currentPosition, firstStep)));
-			
-		}
-
-		ArrayList<Explorer> children = new ArrayList<Explorer>();
-
-		for (Explorer scout : scouts) {
-			children.addAll(scout.generateChildren(generateOptions(map, scout.getPosition())));
-//			if (solution != null) {
-//				System.out.println("EXIT FOUND");
-//
-//				//					Adds all the saved moves from the winning explorer to the queue
-//				for (Tile vertex : solution.getPath()) {
-//					trackRoute(map, backOfQueue, vertex);
-//					backOfQueue = vertex;
-//				}
-//
-//				return;
-//			}
-		}
+		if (queue.size() == 0) {
 		
-		scouts = children;
+//			At the start, creates one explorer that will go on to make more explorers
+			if (scouts.size() == 0) {
+
+//				Works out all the junctions so that the explorers know where to go
+				calculateJunctions(map);
+//				Saves the starting tile
+				backOfQueue = currentPosition;
+
+//				Works out direction that first explorer must move in
+				Tile firstStep = generateOptions(map, currentPosition)[0];
+				scouts.add(new Explorer(map, currentPosition, Direction.Calculate(currentPosition, firstStep)));
+
+			}
+
+			ArrayList<Explorer> children = new ArrayList<Explorer>();
+
+			for (Explorer scout : scouts) {
+				children.addAll(scout.generateChildren(generateOptions(map, scout.getPosition())));
+				if (children.size() == 1 && children.get(0).getPosition().isGoal()) {
+//					Adds all the saved moves from the winning explorer to the queue
+					System.out.println("Vertices: " + children.get(0).getPath());
+					for (Tile vertex : children.get(0).getPath()) {
+						trackRoute(map, backOfQueue, vertex);
+						backOfQueue = vertex;
+					}
+
+					return;
+				}
+			}
+
+			System.out.println("" + scouts.size());
+			scouts = children;
+			
+		}
 		
 	}
-	
+
 	@Override
 	public Tile nextMove(Map map, Tile currentPosition) {
 

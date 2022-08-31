@@ -40,7 +40,6 @@ public class Explorer {
 		
 //		Goes through options to see if any new scouts need to be created
 		ArrayList<Tile> vertices = getVertices(position, options);
-		System.out.println("Vertices: " + vertices);
 		for (Tile adjacent : vertices) {
 			
 			Direction newDirection = Direction.Calculate(position, adjacent);
@@ -50,8 +49,10 @@ public class Explorer {
 			
 		}
 
-		if (position.equals(map.getGoalTile())) {
-//			TODO work out what to do when reaching goal
+		if (position.isGoal()) {
+			ArrayList<Explorer> winning = new ArrayList<Explorer>();
+			winning.add(this);
+			return winning;
 		}
 		
 		return output;
@@ -104,7 +105,7 @@ public class Explorer {
 	public ArrayList<Tile> getPath() {
 		return path;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "(" + position.getX() + ", " + position.getY() + ")";
