@@ -9,14 +9,13 @@ import javafx.scene.paint.Color;
 
 public class Turtle extends Entity {
 
-	private AI aI;
+	private AI main;
 	private long startTime;
 	private boolean win = false;
 	
 	public Turtle(Map map, int x, int y, double width, double height) {
 		super(map, x, y, width, height);
-		aI = new AStar(map, map.getTile(x, y));
-//		aI = new Scorer();
+		main = new AStar();
 		
 //		Timer detection
 		startTime = System.currentTimeMillis();
@@ -39,10 +38,14 @@ public class Turtle extends Entity {
 			
 		}
 		
-		aI.tick(map, map.getTile(x, y));
-		Tile newTile = aI.nextMove(map, map.getTile(x, y));
+//		AI Logic
+		main.tick(map, map.getTile(x, y));
+		
+//		Moving to new position
+		Tile newTile = main.nextMove(map, map.getTile(x, y));
 		if (newTile != null) {
 			move(newTile.getX(), newTile.getY());
+			newTile.visit();
 		}
 		
 	}

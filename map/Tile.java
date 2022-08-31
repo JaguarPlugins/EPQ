@@ -1,7 +1,10 @@
 package edu.agray.maze.map;
 
+import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class Tile {
 
@@ -11,7 +14,8 @@ public class Tile {
 	private double width, height;
 	private boolean isGoal;
 	private boolean deadEnd = false;
-	
+	private int timesVisited = 0;
+
 	public Tile(boolean solid, int x, int y, double width, double height, boolean isGoal) {
 
 		this.solid = solid; // determines whether or not the player can move through this tile
@@ -45,10 +49,23 @@ public class Tile {
 		} else if (deadEnd) {
 			g.setFill(Color.DARKBLUE);
 		} else {
-			g.setFill(Color.hsb(240.0, 1/score, 1));
+			double saturation = score/260;
+			if (saturation > 1) {
+				saturation = 1;
+			}
+			g.setFill(Color.hsb(240.0, saturation, 1));
+			
 		}
 		
 		g.fillRect(x*width, y*width, width, height);
+		
+		if (!solid) {
+			g.setFill(Color.BLACK);
+			g.setTextAlign(TextAlignment.CENTER);
+			g.setTextBaseline(VPos.CENTER);
+			g.setFont(new Font("calibri", 9));
+			g.fillText((int) score + "", x*width + width/2, y*height + height/2);
+		}
 		
 	}
 	
@@ -82,6 +99,14 @@ public class Tile {
 
 	public void setDeadEnd(boolean deadEnd) {
 		this.deadEnd = deadEnd;
+	}
+	
+	public void visit() {
+		timesVisited++;
+	}
+	
+	public int getTimesVisited() {
+		return timesVisited;
 	}
 
 	public void punish() {

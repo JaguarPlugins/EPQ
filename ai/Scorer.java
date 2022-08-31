@@ -16,9 +16,6 @@ public class Scorer extends AI {
 	@Override
 	public void tick(Map map, Tile currentPosition) {
 		
-		int xPos = currentPosition.getX();
-		int yPos = currentPosition.getY();
-
 //		Generates options of where the turtle can move
 		Tile[] options = generateOptions(map, currentPosition);
 		
@@ -31,12 +28,9 @@ public class Scorer extends AI {
 			if (options.length > 1) {
 				deadEnd = false;
 			} else {
-				map.getTile(xPos, yPos).setDeadEnd(true);
+				currentPosition.setDeadEnd(true);
 			}
 			
-		} else {
-//			Increases the score of tiles that it has already passed to decrease the chance of going back there
-			map.getTile(xPos, yPos).punish();
 		}
 		
 	}
@@ -63,6 +57,8 @@ public class Scorer extends AI {
 			}
 		}
 		
+//		Increases the score of tiles that it has already passed to decrease the chance of going back there
+		currentPosition.punish();
 		return equalOptions.get((int) (Math.random() * equalOptions.size())); 
 		
 	}

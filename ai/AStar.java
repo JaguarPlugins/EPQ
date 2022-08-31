@@ -5,24 +5,33 @@ import edu.agray.maze.map.Tile;
 
 public class AStar extends AI {
 	
-	public AStar(Map map, Tile startTile) {
-		
-		for (Tile[] row : map.getMasterArray()) {
-			for (Tile column : row) {
-				column.setScore(manhatten(map, startTile, column) + manhatten(map, column, map.getGoalTile()));
-			}
-		}
+	private static final double MODIFYER = 10; // multiple by which times visited is adjusted
+	private int lastUpdate = 100; // set to high value so will update at first tick
+	
+	public AStar() {
 		
 	}
 	
 	@Override
 	public void tick(Map map, Tile currentPosition) {
 		
+//		Updates full map every so often
+		if (lastUpdate > 20) {
+			for (Tile[] row : map.getMasterArray()) {
+				for (Tile column : row) {
+					updateScore(map, currentPosition, column, map.getGoalTile());
+				}
+			}
+			lastUpdate = 0;
+		}
+		
 		Tile [] options = generateOptions(map, currentPosition);
 		
 		for (Tile tile : options) {
-			tile.setScore(1 + manhatten(map, tile, map.getGoalTile()));
+			updateScore(map, currentPosition, tile, map.getGoalTile());
 		}
+		
+		lastUpdate++;
 		
 	}
 	
@@ -32,6 +41,13 @@ public class AStar extends AI {
 		Tile[] options = generateOptions(map, currentPosition);
 		
 		return options[0];
+	
+	}
+	
+	private void updateScore(Map map, Tile start, Tile node, Tile target) {
+		
+		double score = manhatten(map, start, node) + manhatten(map, node, map.getGoalTile()) + MODIFYER * node.getTimesVisited();
+		node.setScore(score);
 	
 	}
 	
