@@ -88,8 +88,6 @@ public class Multi extends AI {
 	private void loadQueue(Map map, ArrayList<Tile> path) {
 		
 //		Adds all the saved moves from the winning explorer to the queue
-		System.out.println("Vertices: " + path);
-		System.out.println(path.size());
 		for (Tile vertex : path) {
 			trackRoute(map, backOfQueue, vertex);
 			backOfQueue = vertex;

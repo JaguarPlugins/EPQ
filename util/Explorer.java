@@ -37,8 +37,6 @@ public class Explorer {
 
 	public ArrayList<Explorer> generateChildren(Tile[] options) {
 		
-		System.out.println(path);
-		
 		ArrayList<Explorer> output = new ArrayList<Explorer>(); // list to be returned
 		
 		if (position.isGoal()) {
