@@ -27,11 +27,11 @@ public class Run extends AnimationTimer {
 	@Override
 	public void handle(long now) {
 		
-		if (now - lastTime > 500_000_000L) {
+//		if (now - lastTime > 500_000L) {
 			tick();
 			render();
 			lastTime = now;
-		}
+//		}
 		
 	}
 

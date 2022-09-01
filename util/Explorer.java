@@ -29,14 +29,22 @@ public class Explorer {
 		this.map = map;
 		this.direction = direction;
 		this.position = position;
-		path = oldPath;
+		path = new ArrayList<Tile>();
+		path.addAll(oldPath);
 		path.add(position);
 		
 	}
 
 	public ArrayList<Explorer> generateChildren(Tile[] options) {
 		
+		System.out.println(path);
+		
 		ArrayList<Explorer> output = new ArrayList<Explorer>(); // list to be returned
+		
+		if (position.isGoal()) {
+			output.add(this);
+			return output;
+		}
 		
 		for (Tile loopTile : options) {
 			
@@ -47,12 +55,6 @@ public class Explorer {
 				output.add(new Explorer(map, vertex, newDirection, path));
 			}
 			
-		}
-		
-		if (position.isGoal()) {
-			ArrayList<Explorer> winning = new ArrayList<Explorer>();
-			winning.add(this);
-			return winning;
 		}
 		
 		return output;

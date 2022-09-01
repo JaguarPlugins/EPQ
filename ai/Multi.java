@@ -46,21 +46,17 @@ public class Multi extends AI {
 
 			for (Explorer scout : scouts) {
 				children.addAll(scout.generateChildren(generateOptions(map, scout.getPosition())));
+				
+//				Check to see if  any of the explorers have reached the goal
 				if (children.size() == 1 && children.get(0).getPosition().isGoal()) {
-//					Adds all the saved moves from the winning explorer to the queue
-					System.out.println("Vertices: " + children.get(0).getPath());
-					for (Tile vertex : children.get(0).getPath()) {
-						trackRoute(map, backOfQueue, vertex);
-						backOfQueue = vertex;
-					}
-
+					loadQueue(map, children.get(0).getPath());
+					scouts = null;
 					return;
 				}
+				
 			}
 
 			scouts = children;
-
-			System.out.println(scouts.size());
 			
 		}
 		
@@ -89,6 +85,18 @@ public class Multi extends AI {
 		
 	}
 	
+	private void loadQueue(Map map, ArrayList<Tile> path) {
+		
+//		Adds all the saved moves from the winning explorer to the queue
+		System.out.println("Vertices: " + path);
+		System.out.println(path.size());
+		for (Tile vertex : path) {
+			trackRoute(map, backOfQueue, vertex);
+			backOfQueue = vertex;
+		}
+		
+	}
+	
 	private void trackRoute(Map map, Tile start, Tile end) {
 		
 //		Does not include start tile. Does include end tiles
@@ -100,13 +108,19 @@ public class Multi extends AI {
 			queue.add(head);
 		} while (!head.equals(end));
 		
+		for (Tile tile : queue) {
+			tile.setScore(100);
+		}
+		
 	}
 
 	@Override
 	public void render(GraphicsContext g) {
 
-		for (Explorer scout : scouts) {
-			scout.render(g);
+		if (scouts != null) {
+			for (Explorer scout : scouts) {
+				scout.render(g);
+			}
 		}
 
 	}
