@@ -38,17 +38,17 @@ public class Explorer {
 		
 		ArrayList<Explorer> output = new ArrayList<Explorer>(); // list to be returned
 		
-//		Goes through options to see if any new scouts need to be created
-		ArrayList<Tile> vertices = getVertices(position, options);
-		for (Tile adjacent : vertices) {
+		for (Tile loopTile : options) {
 			
-			Direction newDirection = Direction.Calculate(position, adjacent);
+			Direction newDirection = Direction.Calculate(position, loopTile); // works out which direction the line of sight is in
+			Tile vertex = travel(position, newDirection);
+			
 			if (!newDirection.follows(direction.inverse())) {
-				output.add(new Explorer(map, adjacent, newDirection, path));
+				output.add(new Explorer(map, vertex, newDirection, path));
 			}
 			
 		}
-
+		
 		if (position.isGoal()) {
 			ArrayList<Explorer> winning = new ArrayList<Explorer>();
 			winning.add(this);
@@ -58,38 +58,29 @@ public class Explorer {
 		return output;
 		
 	}
-
-	private ArrayList<Tile> getVertices(Tile currentPosition, Tile[] options) {
+	
+	private Tile travel(Tile startTile, Direction travelDirection) {
 		
-//		This array will contain all the vertices that the explorer could move to by moving in a straight line
-		ArrayList<Tile> vertices = new ArrayList<Tile>();
-		for (Tile loopTile : options) {
-			
-			Tile focus = loopTile;
-			Direction direction = Direction.Calculate(currentPosition, loopTile); // works out which direction the line of sight is in
-			
-			if (focus.isJunction()) {
-				vertices.add(focus);
+//		Returns the fist "interesting" tile that it reaches in that direction
+//		Start tile is not included
+		
+		Tile focus = startTile;
+		
+		while (map.getTile(focus, travelDirection) != null) {
+		
+			Tile next = map.getTile(focus, travelDirection);
+			if (next.isSolid()) {
+				return focus;
+			}
+			if (next.isJunction()) {
+				return next;
 			}
 			
-			while (map.getTile(focus, direction) != null) {
-				
-				Tile next = map.getTile(focus, direction);
-				if (next.isSolid()) {
-					break;
-				}
-				if (next.isJunction()) {
-					vertices.add(next);
-				}
-				focus = next;
-				
-			}
-			
-			vertices.add(focus);
+			focus = next;
 			
 		}
 		
-		return vertices;
+		return focus;
 		
 	}
 	

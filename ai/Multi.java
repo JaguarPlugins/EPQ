@@ -58,8 +58,9 @@ public class Multi extends AI {
 				}
 			}
 
-			System.out.println("" + scouts.size());
 			scouts = children;
+
+			System.out.println(scouts.size());
 			
 		}
 		

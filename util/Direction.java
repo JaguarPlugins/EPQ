@@ -40,12 +40,32 @@ public class Direction {
 
 	}
 	
+	public boolean isParallel(Direction direction) {
+		
+		return (Math.abs(direction.getDx()) == Math.abs(this.dx) && Math.abs(direction.getDy()) == Math.abs(this.dy));
+		
+	}
+	
 	public int getDx() {
 		return dx;
 	}
 
 	public int getDy() {
 		return dy;
+	}
+	
+	@Override
+	public String toString() {
+		if (follows(UP)) {
+			return "UP";
+		} if (follows(DOWN)) {
+			return "DOWN";
+		} if (follows(LEFT)) {
+			return "LEFT";
+		} if (follows(RIGHT)) {
+			return "RIGHT";
+		}
+		return "Direction: " + dx + ", " + dy;
 	}
 	
 }
