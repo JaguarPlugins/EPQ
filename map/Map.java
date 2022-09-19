@@ -19,15 +19,18 @@ public class Map {
 	private Tile[][] tiles; // NOTE: DUE TO READING OF FILES, X AND Y ARE THE WRONG WAY AROUND. WILL CORRECT IN GETTERS
 	private double tileWidth, tileHeight;
 	private int endX, endY;
+	private int startX, startY;
 	
-	public Map(String fileName, int endX, int endY) {
+	public Map(String fileName, int startX, int startY, int endX, int endY) {
 		
 		tiles = loadMap(fileName);
 		this.endX = endX;
 		this.endY = endY;
+		this.startX = startX;
+		this.startY = startY;
 		
 	}
-	
+
 	public void render(GraphicsContext g) {
 		
 		for (Tile[] rows : tiles) {
@@ -169,6 +172,14 @@ public class Map {
 	
 	public Tile[][] getMasterArray(){
 		return tiles;
+	}
+	
+	public int getStartX() {
+		return startX;
+	}
+
+	public int getStartY() {
+		return startY;
 	}
 	
 }

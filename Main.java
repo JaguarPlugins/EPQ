@@ -1,5 +1,6 @@
 package edu.agray.maze;
 
+import edu.agray.maze.ui.Button;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -10,7 +11,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 //	GLOBAL VARIABLES
-	public static final double WIDTH = 800, HEIGHT = 800;
+	public static final double WIDTH = 800, HEIGHT = 850;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -24,24 +25,17 @@ public class Main extends Application {
 		GraphicsContext g = canvas.getGraphicsContext2D();
 		Group placeholder = new Group(canvas);
 		
-//		Adding the runnable class to tick and render
+//		Adding the AnimationTimer class to tick and render
 		Run run = new Run(g);
 		run.start();
 		
 //		Create scene and add listeners
 		Scene scene = new Scene(placeholder);
-//		scene.setOnKeyReleased(run.getActive()); // player now listens for key presses to move
-//		NOTE: IF NEEDED, CO-ORDINATES CAN EASILY BE DISPLAYED
-//		scene.setOnMouseMoved(new EventHandler<MouseEvent>() {
-//
-//			@Override
-//			public void handle(MouseEvent e) {
-//				
-//				System.out.println("(" + e.getX() + "," + e.getY() + ")");
-//				
-//			}
-//			
-//		});
+//		scene.setOnKeyReleased(run.getPlayer()); // player now listens for key presses to move
+		for (Button b : run.getButtons()) {
+			scene.setOnMouseMoved(b);
+			scene.setOnMouseClicked(b);
+		}
 		
 //		Setup for stage
 		primaryStage.setScene(scene);
