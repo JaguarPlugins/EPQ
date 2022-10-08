@@ -36,20 +36,24 @@ public class Multi extends AI {
 //				Saves the starting tile
 				backOfQueue = currentPosition;
 
-//				Works out direction that first explorer must move in
+//				Calculates all the "vertices" that the turtle can get to from its current position
 				Tile firstStep = generateOptions(map, currentPosition)[0];
+//				Creates the first explorer
 				scouts.add(new Explorer(map, currentPosition, Direction.Calculate(currentPosition, firstStep)));
 
 			}
 
 			ArrayList<Explorer> children = new ArrayList<Explorer>();
 
+//			Goes through every current explorer and creates new explorers in all possible directions
 			for (Explorer scout : scouts) {
 				children.addAll(scout.generateChildren(generateOptions(map, scout.getPosition())));
 				
-//				Check to see if  any of the explorers have reached the goal
+//				Check to see if any of the explorers have reached the goal.
+//				The check for size = 1 is due to the fact that the generateChildren() function will only
+//				return one tile if it detects the goal tile
 				if (children.size() == 1 && children.get(0).getPosition().isGoal()) {
-					loadQueue(map, children.get(0).getPath());
+					loadQueue(map, children.get(0).getPath()); // loads the explorer's path into the movement queue
 					scouts = null;
 					return;
 				}

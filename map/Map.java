@@ -83,46 +83,53 @@ public class Map {
 	
 	private Tile[][] loadMap(String fileName) {
 		
+//		File loading often throws errors so we need to surround it with a try statement to avoid crashes
 		try {
 			
 //			Opens the file and starts reading it
 			File file = new File(fileName);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			
+//			ArrayList does not have a pre-specified length so can easily be added to regardless of length of file
 			ArrayList<Tile[]> outputList = new ArrayList<Tile[]>();
 			
 //			Converts text file into array of tiles
 			String line;
 			int y = 0;
-			while ((line = reader.readLine()) != null) {
+			while ((line = reader.readLine()) != null) { // saves the contents of each line to a variable
 				
 				char[] charList = line.toCharArray(); // turns line of text file into array
 				Tile[] tileList = new Tile[line.length()]; // temporary array to store row of tiles
 				
 				for (int x = 0; x < line.length(); x++) { // iterates through array of tiles
 					
-					double width = Main.WIDTH/line.length();
-//					TODO generate height separately for when it isn't a square.
+//					The array for each individual line can be a default array as it is easy to calculate the length
+					double width = Main.WIDTH/line.length(); // calculates width of the tile
+//					height is also set to the width of the tile so that the maze still looks smart when not a square
 					
 					if (charList[x] == '2') {
+//						Creates a tile with the property goal tile so the AI knows where to go
 						tileList[x] = new Tile((charList[x] == '1'), x, y, width, width, true);
 					} else {
+//						Creates a regular tile that is either solid (1) or not empty (0)
 						tileList[x] = new Tile((charList[x] == '1'), x, y, width, width);
 					}
 					
 				}
 				
+//				Adds the row of tiles we have just created to the master list of rows
 				outputList.add(tileList);
 				
 				y++;
 				
 			} 
 			
-			reader.close();
+			reader.close(); // Closes the file so the program is no longer looking at it
 			
-			tileHeight = Main.HEIGHT / outputList.size();
-			tileWidth = Main.WIDTH / outputList.get(0).length;
+			tileHeight = Main.HEIGHT / outputList.size(); // calculates the width of each tile
+			tileWidth = Main.WIDTH / outputList.get(0).length; // calculates the height of each tile
 			
+//			Converts the ArrayList into a normal array as these are easier to deal with
 			Tile[][] outputArray = new Tile[outputList.size()][outputList.get(0).length];
 			for (int i = 0; i < outputList.size(); i++) {
 				outputArray[i] = outputList.get(i);
@@ -130,6 +137,7 @@ public class Map {
 			
 			return outputArray;
 			
+//		Catch statements will send messages to the user if there are any errors
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			Alert a = new Alert(AlertType.ERROR, "File could not be found");
@@ -144,6 +152,10 @@ public class Map {
 		
 	}
 
+	public void reset() {
+		
+	}
+	
 	public double getTileWidth() {
 		if (tileWidth < tileHeight) {
 			return tileWidth;

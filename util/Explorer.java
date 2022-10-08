@@ -40,17 +40,19 @@ public class Explorer {
 		ArrayList<Explorer> output = new ArrayList<Explorer>(); // list to be returned
 		
 		if (position.isGoal()) {
+//			if the next move is simply the goal tile, then just this will be returned to the Turtle
 			output.add(this);
 			return output;
 		}
 		
 		for (Tile loopTile : options) {
+//			iterates through tiles in this direction until it reaches a "vertex"
 			
-			Direction newDirection = Direction.Calculate(position, loopTile); // works out which direction the line of sight is in
+			Direction newDirection = Direction.Calculate(position, loopTile); // works out the direction of the line of sight
 			Tile vertex = travel(position, newDirection);
 			
-			if (!newDirection.follows(direction.inverse())) {
-				output.add(new Explorer(map, vertex, newDirection, path));
+			if (!newDirection.follows(direction.inverse())) { // ensures explorers don't double back on themselves
+				output.add(new Explorer(map, vertex, newDirection, path)); // creates a new explorer
 			}
 			
 		}

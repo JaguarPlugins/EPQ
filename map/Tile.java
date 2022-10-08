@@ -56,6 +56,10 @@ public class Tile {
 			}
 			g.setFill(Color.hsb(240.0, saturation, 1));
 			
+			if (score > 0 && score < 1) {
+				g.setFill(Color.hsb(240, score, 1));
+			}
+			
 		}
 		
 		g.fillRect(x*width, y*width, width, height);

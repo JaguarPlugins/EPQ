@@ -1,12 +1,11 @@
 package edu.agray.maze.entities;
 
 import edu.agray.maze.map.Map;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public abstract class Entity implements EventHandler<KeyEvent> {
+public abstract class Entity {
 
 	protected int x, y;
 	protected double width, height;
@@ -41,21 +40,20 @@ public abstract class Entity implements EventHandler<KeyEvent> {
 		
 	}
 	
-	@Override
 	public void handle(KeyEvent e){
 	
 		// sets an array to which keys are pressed so that movement can be handled uniformly in the tick method
 		if (e.getCode().equals(KeyCode.UP)) {
-			keys[0] = e.getEventType().equals(KeyEvent.KEY_RELEASED);
+			keys[0] = e.getEventType().equals(KeyEvent.KEY_PRESSED);
 		}
 		if (e.getCode().equals(KeyCode.RIGHT)) {
-			keys[1] = e.getEventType().equals(KeyEvent.KEY_RELEASED);
+			keys[1] = e.getEventType().equals(KeyEvent.KEY_PRESSED);
 		}
 		if (e.getCode().equals(KeyCode.DOWN)) {
-			keys[2] = e.getEventType().equals(KeyEvent.KEY_RELEASED);
+			keys[2] = e.getEventType().equals(KeyEvent.KEY_PRESSED);
 		}
 		if (e.getCode().equals(KeyCode.LEFT)) {
-			keys[3] = e.getEventType().equals(KeyEvent.KEY_RELEASED);
+			keys[3] = e.getEventType().equals(KeyEvent.KEY_PRESSED);
 		}
 
 	}

@@ -2,12 +2,11 @@ package edu.agray.maze.ui;
 
 import edu.agray.maze.entities.Entity;
 import edu.agray.maze.map.Map;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
-public abstract class Button implements EventHandler<MouseEvent> {
+public abstract class Button {
 
 	protected Rectangle hitbox;
 	protected boolean hover;
@@ -24,7 +23,6 @@ public abstract class Button implements EventHandler<MouseEvent> {
 	
 	public abstract void render(GraphicsContext g);
 	
-	@Override
 	public void handle(MouseEvent e) {
 		
 		hover = false;

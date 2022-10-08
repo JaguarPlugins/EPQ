@@ -18,20 +18,20 @@ public class AStarButton extends Button {
 	@Override
 	public Entity click() {
 		return new Turtle(map, new AStar(), map.getStartX(), map.getStartY(), map.getTileWidth(), map.getTileHeight());
-
 	}
 
 	@Override
 	public void render(GraphicsContext g) {
 		
-		g.setFill(Color.HOTPINK);
+		g.setFill(Color.MEDIUMVIOLETRED);
 		if (hover) {
-			g.setFill(Color.MEDIUMVIOLETRED);
+			g.setFill(Color.HOTPINK);
 		}
 		g.fillRoundRect(hitbox.getX(), hitbox.getY(), hitbox.getWidth(), hitbox.getHeight(), SMOOTH, SMOOTH);
 		g.setFill(Color.WHITE);
 		g.setFont(new Font("calibri", 30));
-		g.fillText("Astar", hitbox.getX(), hitbox.getY());
+		g.fillText("Astar", hitbox.getX() + hitbox.getWidth()/2, hitbox.getY() + hitbox.getHeight()/2);
+		
 	}
 
 }

@@ -2,9 +2,7 @@ package edu.agray.maze;
 
 import java.util.ArrayList;
 
-import edu.agray.maze.ai.Multi;
 import edu.agray.maze.entities.Entity;
-import edu.agray.maze.entities.Turtle;
 import edu.agray.maze.map.Map;
 import edu.agray.maze.ui.AStarButton;
 import edu.agray.maze.ui.Button;
@@ -37,8 +35,6 @@ public class Run extends AnimationTimer {
 		buttons[1] = new ScorerButton(map, Main.WIDTH/4, Main.WIDTH, Main.WIDTH/4, Main.HEIGHT - Main.WIDTH);
 		buttons[2] = new MultiButton(map, 2*Main.WIDTH/4, Main.WIDTH, Main.WIDTH/4, Main.HEIGHT - Main.WIDTH);
 		buttons[3] = new AStarButton(map, 3*Main.WIDTH/4, Main.WIDTH, Main.WIDTH/4, Main.HEIGHT - Main.WIDTH);
-		
-		entities.add(new Turtle(map, new Multi(), map.getStartX(), map.getStartY(), map.getTileWidth(), map.getTileHeight()));
 		
 	}
 
@@ -90,6 +86,10 @@ public class Run extends AnimationTimer {
 	
 	public Button[] getButtons() {
 		return buttons;
+	}
+
+	public ArrayList<Entity> getEntities() {
+		return entities;
 	}
 
 }

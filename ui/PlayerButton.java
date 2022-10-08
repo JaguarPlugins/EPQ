@@ -5,6 +5,7 @@ import edu.agray.maze.entities.Player;
 import edu.agray.maze.map.Map;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class PlayerButton extends Button {
 
@@ -21,9 +22,14 @@ public class PlayerButton extends Button {
 	@Override
 	public void render(GraphicsContext g) {
 		
+		g.setFill(Color.BLACK);
+		if (hover) {
+			g.setFill(Color.DARKGRAY);
+		}
 		g.fillRoundRect(hitbox.getX(), hitbox.getY(), hitbox.getWidth(), hitbox.getHeight(), SMOOTH, SMOOTH);
 		g.setFill(Color.WHITE);
-		g.fillText("Player", hitbox.getX(), hitbox.getY());
+		g.setFont(new Font("calibri", 30));
+		g.fillText("Player", hitbox.getX() + hitbox.getWidth()/2, hitbox.getY() + hitbox.getHeight()/2);
 		
 	}
 

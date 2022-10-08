@@ -6,6 +6,7 @@ import edu.agray.maze.entities.Turtle;
 import edu.agray.maze.map.Map;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class ScorerButton extends Button {
 
@@ -22,9 +23,14 @@ public class ScorerButton extends Button {
 	@Override
 	public void render(GraphicsContext g) {
 		
+		g.setFill(Color.CORNFLOWERBLUE.darker());
+		if (hover) {
+			g.setFill(Color.CORNFLOWERBLUE);
+		}
 		g.fillRoundRect(hitbox.getX(), hitbox.getY(), hitbox.getWidth(), hitbox.getHeight(), SMOOTH, SMOOTH);
 		g.setFill(Color.WHITE);
-		g.fillText("Scorer", hitbox.getX(), hitbox.getY());
+		g.setFont(new Font("calibri", 30));
+		g.fillText("Scorer", hitbox.getX() + hitbox.getWidth()/2, hitbox.getY() + hitbox.getHeight()/2);
 		
 	}
 

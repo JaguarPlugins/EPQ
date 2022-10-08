@@ -31,6 +31,7 @@ public class Turtle extends Entity {
 				long time = System.currentTimeMillis() - startTime;
 				System.out.println("Time: " + (int) ((time/1000) / 60) + ":" + (int) Math.floorMod(time/1000, 60) + "." + (int) Math.floorMod(time, 1000));
 				win = true;
+				map.reset();
 			}
 			
 			return;

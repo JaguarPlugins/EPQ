@@ -21,15 +21,15 @@ public class Scorer extends AI {
 		Tile[] options = generateOptions(map, currentPosition);
 		
 //		Dead end detection
-		if (options.length < 2) {
+		if (options.length < 2) { // if the AI only has one tile it can move to, it is at a dead end
 			deadEnd = true;
 		}
 		
 		if (deadEnd) {
 			if (options.length > 1) {
-				deadEnd = false;
+				deadEnd = false; // disables dead end mode once it has reached a cross-roads again
 			} else {
-				currentPosition.setDeadEnd(true);
+				currentPosition.setDeadEnd(true); // marks current tile as a dead end
 			}
 			
 		}
@@ -44,7 +44,7 @@ public class Scorer extends AI {
 		
 //		To enhance performance does not bother randomising choices if there is only 1 choice
 		if (options.length < 2) {
-			return options[0]; // selects the first (most favourable) position in the choice of options
+			return options[0];
 		}
 		
 //		Putting all equally valuable tiles in to 1 list to avoid bias to top right
@@ -60,6 +60,7 @@ public class Scorer extends AI {
 		
 //		Increases the score of tiles that it has already passed to decrease the chance of going back there
 		currentPosition.punish();
+//		Picks a random tile to move to out of the most favourable options
 		return equalOptions.get((int) (Math.random() * equalOptions.size())); 
 		
 	}

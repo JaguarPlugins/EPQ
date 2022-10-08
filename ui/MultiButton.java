@@ -6,6 +6,7 @@ import edu.agray.maze.entities.Turtle;
 import edu.agray.maze.map.Map;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class MultiButton extends Button {
 
@@ -22,9 +23,15 @@ public class MultiButton extends Button {
 	@Override
 	public void render(GraphicsContext g) {
 		
+		g.setFill(Color.DARKGREEN);
+		if (hover) {
+			g.setFill(Color.GREEN);
+		}
 		g.fillRoundRect(hitbox.getX(), hitbox.getY(), hitbox.getWidth(), hitbox.getHeight(), SMOOTH, SMOOTH);
 		g.setFill(Color.WHITE);
-		g.fillText("Multi", hitbox.getX(), hitbox.getY());
+		g.setFont(new Font("calibri", 30));
+		g.fillText("Multi", hitbox.getX() + hitbox.getWidth()/2, hitbox.getY() + hitbox.getHeight()/2);
+		
 	}
 
 }

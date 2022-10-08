@@ -1,6 +1,7 @@
 package edu.agray.maze;
 
-import edu.agray.maze.ui.Button;
+import edu.agray.maze.input.KeyHandler;
+import edu.agray.maze.input.MouseHandler;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -31,11 +32,11 @@ public class Main extends Application {
 		
 //		Create scene and add listeners
 		Scene scene = new Scene(placeholder);
-//		scene.setOnKeyReleased(run.getPlayer()); // player now listens for key presses to move
-		for (Button b : run.getButtons()) {
-			scene.setOnMouseMoved(b);
-			scene.setOnMouseClicked(b);
-		}
+		MouseHandler mouseHandler = new MouseHandler(run.getButtons());
+		KeyHandler keyHandler = new KeyHandler(run.getEntities());
+		scene.setOnKeyPressed(keyHandler); // player now listens for key presses to move
+		scene.setOnMouseClicked(mouseHandler);
+		scene.setOnMouseMoved(mouseHandler);
 		
 //		Setup for stage
 		primaryStage.setScene(scene);
