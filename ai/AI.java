@@ -39,7 +39,7 @@ public abstract class AI {
 
 			@Override
 			public int compare(Tile t1, Tile t2) {
-				return Double.toString(t1.getScore()).compareTo(Double.toString(t2.getScore()));
+				return Double.valueOf(t1.getScore()).compareTo(Double.valueOf(t2.getScore()));
 			}
 			
 		});

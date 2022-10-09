@@ -40,7 +40,6 @@ public class AStar extends AI {
 	public Tile nextMove(Map map, Tile currentPosition) {
 		
 		Tile[] options = generateOptions(map, currentPosition);
-		
 		return options[0];
 	
 	}

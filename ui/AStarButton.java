@@ -4,9 +4,11 @@ import edu.agray.maze.ai.AStar;
 import edu.agray.maze.entities.Entity;
 import edu.agray.maze.entities.Turtle;
 import edu.agray.maze.map.Map;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class AStarButton extends Button {
 
@@ -30,6 +32,8 @@ public class AStarButton extends Button {
 		g.fillRoundRect(hitbox.getX(), hitbox.getY(), hitbox.getWidth(), hitbox.getHeight(), SMOOTH, SMOOTH);
 		g.setFill(Color.WHITE);
 		g.setFont(new Font("calibri", 30));
+		g.setTextAlign(TextAlignment.CENTER);
+		g.setTextBaseline(VPos.CENTER);
 		g.fillText("Astar", hitbox.getX() + hitbox.getWidth()/2, hitbox.getY() + hitbox.getHeight()/2);
 		
 	}

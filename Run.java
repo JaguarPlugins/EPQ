@@ -41,11 +41,11 @@ public class Run extends AnimationTimer {
 	@Override
 	public void handle(long now) {
 		
-		if (now - lastTime > 1_000_000_000L) {
+//		if (now - lastTime > 1_000_000L) {
 			tick();
 			render();
-			lastTime = now;
-		}
+//			lastTime = now;
+//		}
 	
 	}
 
@@ -58,12 +58,9 @@ public class Run extends AnimationTimer {
 			}
 		}
 		
-		System.out.println("tick");
-		
 		for (Entity e : entities) {
 			if (e != null) {
 				e.tick();
-				System.out.println(e.toString());
 			}
 		}
 		

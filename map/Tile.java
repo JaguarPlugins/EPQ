@@ -64,13 +64,13 @@ public class Tile {
 		
 		g.fillRect(x*width, y*width, width, height);
 		
-		if (!solid) {
-			g.setFill(Color.BLACK);
-			g.setTextAlign(TextAlignment.CENTER);
-			g.setTextBaseline(VPos.CENTER);
-			g.setFont(new Font("calibri", 9));
-			g.fillText((int) score + "", x*width + width/2, y*height + height/2);
-		}
+//		if (!solid) {
+//			g.setFill(Color.BLACK);
+//			g.setTextAlign(TextAlignment.CENTER);
+//			g.setTextBaseline(VPos.CENTER);
+//			g.setFont(new Font("calibri", 9));
+//			g.fillText((int) score + "", x*width + width/2, y*height + height/2);
+//		}
 		
 	}
 	
