@@ -42,7 +42,9 @@ public abstract class Button {
 	}
 	
 	public Entity getEntity() {
-		return entity;
+		Entity temp = entity;
+		entity = null;
+		return temp;
 	}
 	
 }
