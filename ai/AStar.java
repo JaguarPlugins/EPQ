@@ -46,6 +46,7 @@ public class AStar extends AI {
 	
 	private void updateScore(Map map, Tile start, Tile node, Tile target) {
 		
+//		Uses modifier to stop AStar from revisiting old tiles
 		double score = manhatten(map, start, node) + manhatten(map, node, map.getGoalTile()) + MODIFYER * node.getTimesVisited();
 		node.setScore(score);
 	
@@ -57,12 +58,6 @@ public class AStar extends AI {
 		int dy = Math.abs(start.getY() - end.getY());
 		
 		return dx + dy;
-		
-//		CODE FOR USING HIGHER SCORE AND MORE FAVOURABLE
-//		When doing the setups for the tile scoring system I did not realise that in AStar the lowest score is the best value,
-//		Doing 1 - the fraction converts it into the style of my tile structure
-//		return 1 - (1/(map.getMapTileWidth() + map.getMapTileHeight())) * (dx + dy);
-//		As a side effect of this reciprocation, the score will have a greater effect the close the AI gets to the target
 		
 	}
 
