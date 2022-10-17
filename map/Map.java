@@ -103,6 +103,14 @@ public class Map {
 		}
 	}
 
+	public void setEndX(int endX) {
+		this.endX = endX;
+	}
+
+	public void setEndY(int endY) {
+		this.endY = endY;
+	}
+
 	public boolean checkCollision(int xPos, int yPos) {
 		
 		// if player is outside the map

@@ -52,6 +52,10 @@ public class MouseHandler implements EventHandler<MouseEvent> {
 				Tile target = map.getTile(event.getX(), event.getY());
 				if (event.getEventType().equals(MouseEvent.MOUSE_CLICKED) && !target.isSolid()) {
 					target.setGoal(!target.isGoal());
+					if (target.isGoal()) {
+						map.setEndX(target.getX());
+						map.setEndY(target.getY());
+					}
 				}
 				
 			} else if (event.getButton().equals(MouseButton.MIDDLE)) {
@@ -59,7 +63,7 @@ public class MouseHandler implements EventHandler<MouseEvent> {
 				Tile target = map.getTile(event.getX(), event.getY());
 				if (event.getEventType().equals(MouseEvent.MOUSE_CLICKED) && !target.isSolid()) {
 					target.setStart(!target.isStart());
-					if (target.isGoal()) {
+					if (target.isStart()) {
 						map.setStartX(target.getX());
 						map.setStartY(target.getY());
 					}
