@@ -1,10 +1,7 @@
 package edu.agray.maze.map;
 
-import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 
 public class Tile {
 
@@ -44,6 +41,8 @@ public class Tile {
 	}
 
 	public void render(GraphicsContext g) {
+		
+		g.setFill(Color.WHITE);
 		
 		if (solid) {
 			g.setFill(Color.BLACK); // Black indicates the block is solid
@@ -90,6 +89,10 @@ public class Tile {
 		return height;
 	}
 	
+	public void setSolid(boolean solid) {
+		this.solid = solid;
+	}
+
 	public boolean isSolid() {
 		return solid;
 	}

@@ -3,6 +3,7 @@ package edu.agray.maze;
 import java.util.ArrayList;
 
 import edu.agray.maze.entities.Entity;
+import edu.agray.maze.map.BlankMap;
 import edu.agray.maze.map.Map;
 import edu.agray.maze.ui.AStarButton;
 import edu.agray.maze.ui.Button;
@@ -25,7 +26,8 @@ public class Run extends AnimationTimer {
 		super();
 		this.g = g;
 		
-		map = new Map("src/edu/agray/maze/map/medium.txt", 0, 11, 37, 0);
+//		map = new Map("src/edu/agray/maze/map/medium.txt", 0, 11, 37, 0);
+		map = new BlankMap(20, 20);
 		entities = new ArrayList<Entity>();
 		lastTime = System.currentTimeMillis();
 		
@@ -41,10 +43,10 @@ public class Run extends AnimationTimer {
 	@Override
 	public void handle(long now) {
 		
-//		if (now - lastTime > 1_000_000L) {
+//		if (now - lastTime > 100_000_000L) {
 			tick();
 			render();
-//			lastTime = now;
+			lastTime = now;
 //		}
 	
 	}
@@ -84,6 +86,10 @@ public class Run extends AnimationTimer {
 		
 	}
 	
+	public Map getMap() {
+		return map;
+	}
+
 	public Button[] getButtons() {
 		return buttons;
 	}

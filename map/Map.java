@@ -1,11 +1,14 @@
 package edu.agray.maze.map;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import edu.agray.maze.Main;
@@ -16,10 +19,11 @@ import javafx.scene.control.Alert.AlertType;
 
 public class Map {
 
-	private Tile[][] tiles; // NOTE: DUE TO READING OF FILES, X AND Y ARE THE WRONG WAY AROUND. WILL CORRECT IN GETTERS
-	private double tileWidth, tileHeight;
-	private int endX, endY;
-	private int startX, startY;
+	protected Tile[][] tiles; // NOTE: DUE TO READING OF FILES, X AND Y ARE THE WRONG WAY AROUND. WILL CORRECT IN GETTERS
+	protected double tileWidth, tileHeight;
+	protected int endX, endY;
+	protected int startX, startY;
+	protected boolean locked;
 	
 	public Map(String fileName, int startX, int startY, int endX, int endY) {
 		
@@ -28,7 +32,20 @@ public class Map {
 		this.endY = endY;
 		this.startX = startX;
 		this.startY = startY;
+		locked = true;
 		
+	}
+	
+	public boolean isLocked() {
+		return locked;
+	}
+
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+	}
+
+	public Map(int width, int height) {
+		tiles = new Tile[width][height];
 	}
 
 	public void render(GraphicsContext g) {
@@ -81,7 +98,7 @@ public class Map {
 		
 	}
 	
-	private Tile[][] loadMap(String fileName) {
+	protected Tile[][] loadMap(String fileName) {
 		
 //		File loading often throws errors so we need to surround it with a try statement to avoid crashes
 		try {
@@ -152,6 +169,27 @@ public class Map {
 		
 	}
 
+	protected void saveMap(String fileName) {
+		
+		File file = new File(fileName);
+		try {
+			file.createNewFile();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			Alert a = new Alert(AlertType.ERROR, "Could not create file");
+			a.showAndWait();
+		}
+		try {
+			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
 	public void reset() {
 		
 	}

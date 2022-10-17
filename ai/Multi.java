@@ -111,7 +111,7 @@ public class Multi extends AI {
 		} while (!head.equals(end));
 		
 		for (Tile tile : queue) {
-			tile.setScore(100);
+			tile.setScore(300);
 		}
 		
 	}
