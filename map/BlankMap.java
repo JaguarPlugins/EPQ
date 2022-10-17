@@ -32,13 +32,11 @@ public class BlankMap extends Map {
 			}
 		}
 		
+		g.setFill(Color.WHITE);
 		for (int x = 0; x < mapSizeWidth; x++) {
-			g.setFill(Color.BLACK);
 			g.fillRect(x*tileWidth, 0, 1, Main.WIDTH);
 		}
-
 		for (int y = 0; y < mapSizeHeight; y++) {
-			g.setFill(Color.BLACK);
 			g.fillRect(0, y*tileWidth, Main.WIDTH, 1);
 		}
 		

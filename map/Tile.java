@@ -13,6 +13,7 @@ public class Tile {
 	private boolean junction = false;
 	private boolean deadEnd = false;
 	private int timesVisited = 0;
+	private boolean isStart = false;;
 
 	public Tile(boolean solid, int x, int y, double width, double height, boolean isGoal) {
 
@@ -48,6 +49,10 @@ public class Tile {
 			g.setFill(Color.BLACK); // Black indicates the block is solid
 		} else if (deadEnd) {
 			g.setFill(Color.DARKBLUE);
+		} else if (isGoal) {
+			g.setFill(Color.GREEN);
+		} else if (isStart) { 
+			g.setFill(Color.WHITE);
 		} else {
 			double saturation = score/260;
 			if (saturation > 1) {
@@ -73,6 +78,18 @@ public class Tile {
 		
 	}
 	
+	public boolean isStart() {
+		return isStart;
+	}
+
+	public void setStart(boolean isStart) {
+		this.isStart = isStart;
+	}
+	
+	public void setGoal(boolean isGoal) {
+		this.isGoal = isGoal;
+	}
+
 	public int getX() {
 		return x;
 	}

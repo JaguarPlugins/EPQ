@@ -27,7 +27,7 @@ public class Run extends AnimationTimer {
 		this.g = g;
 		
 //		map = new Map("src/edu/agray/maze/map/medium.txt", 0, 11, 37, 0);
-		map = new BlankMap(20, 20);
+		map = new BlankMap(40, 40);
 		entities = new ArrayList<Entity>();
 		lastTime = System.currentTimeMillis();
 		

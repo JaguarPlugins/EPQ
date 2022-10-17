@@ -81,6 +81,28 @@ public class Map {
 		
 	}
 	
+	public Tile getTile(double x, double y) {
+		
+		if (x < 0 || y < 0 || x >= Main.WIDTH || y >= Main.WIDTH) {
+			return null;
+		}
+		return tiles[(int) (y/tileHeight)][(int) (x/tileWidth)];
+		
+	}
+	
+	public void setStartX(int startX) {
+		if (!locked) {
+			this.startX = startX;
+		}
+		
+	}
+
+	public void setStartY(int startY) {
+		if (!locked) {
+			this.startY = startY;
+		}
+	}
+
 	public boolean checkCollision(int xPos, int yPos) {
 		
 		// if player is outside the map
