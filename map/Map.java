@@ -25,15 +25,27 @@ public class Map {
 	protected int startX, startY;
 	protected boolean locked;
 	
-	public Map(String fileName, int startX, int startY, int endX, int endY) {
+	public Map(String fileName) {
 		
 		tiles = loadMap(fileName);
-		this.endX = endX;
-		this.endY = endY;
-		this.startX = startX;
-		this.startY = startY;
+		for (Tile[] rows : tiles) {
+			for (Tile t : rows) {
+				if (t.isGoal()) {
+					endX = t.getX();
+					endY = t.getY();
+				}
+				if (t.isStart()) {
+					startX = t.getX();
+					startY = t.getY();
+				}
+			}
+		}
 		locked = true;
 		
+	}
+		
+	public Map(int width, int height) {
+		tiles = new Tile[width][height];
 	}
 	
 	public boolean isLocked() {
@@ -44,9 +56,7 @@ public class Map {
 		this.locked = locked;
 	}
 
-	public Map(int width, int height) {
-		tiles = new Tile[width][height];
-	}
+	
 
 	public void render(GraphicsContext g) {
 		
@@ -156,7 +166,9 @@ public class Map {
 					
 					if (charList[x] == '2') {
 //						Creates a tile with the property goal tile so the AI knows where to go
-						tileList[x] = new Tile((charList[x] == '1'), x, y, width, width, true);
+						tileList[x] = new Tile((charList[x] == '1'), x, y, width, width, true, false);
+					} else if (charList[x] == '3') {
+						tileList[x] = new Tile((charList[x] == '1'), x, y, width, width, false, true);
 					} else {
 //						Creates a regular tile that is either solid (1) or not empty (0)
 						tileList[x] = new Tile((charList[x] == '1'), x, y, width, width);
@@ -218,6 +230,15 @@ public class Map {
 		
 		
 		
+	}
+	
+	public static ArrayList<String> lookupMaps() {
+		File file = new File("maps");
+		ArrayList<String> maps = new ArrayList<String>();
+		for (String map : file.list()) {
+			maps.add(map);
+		}
+		return maps;
 	}
 	
 	public void reset() {

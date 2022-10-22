@@ -90,6 +90,10 @@ public class Run extends AnimationTimer {
 		return map;
 	}
 
+	public void setMap(Map map) {
+		this.map = map;
+	}
+	
 	public Button[] getButtons() {
 		return buttons;
 	}

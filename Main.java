@@ -33,7 +33,7 @@ public class Main extends Application {
 //		Create scene and add listeners
 		Scene scene = new Scene(placeholder);
 		MouseHandler mouseHandler = new MouseHandler(run.getButtons(), run.getMap());
-		KeyHandler keyHandler = new KeyHandler(run.getEntities());
+		KeyHandler keyHandler = new KeyHandler(run.getEntities(), run);
 		scene.setOnKeyPressed(keyHandler); // player now listens for key presses to move
 		scene.setOnMouseClicked(mouseHandler);
 		scene.setOnMouseMoved(mouseHandler);

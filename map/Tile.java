@@ -9,16 +9,17 @@ public class Tile {
 	private double score;
 	private int x, y;
 	private double width, height;
-	private boolean isGoal;
+	private boolean isGoal = false;
 	private boolean junction = false;
 	private boolean deadEnd = false;
 	private int timesVisited = 0;
 	private boolean isStart = false;;
 
-	public Tile(boolean solid, int x, int y, double width, double height, boolean isGoal) {
+	public Tile(boolean solid, int x, int y, double width, double height, boolean isGoal, boolean isStart) {
 
 		this.solid = solid; // determines whether or not the player can move through this tile
 		this.isGoal = isGoal;
+		this.isStart = isStart;
 		this.x = x;
 		this.y = y;
 		this.width = width;
