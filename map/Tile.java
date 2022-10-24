@@ -164,4 +164,17 @@ public class Tile {
 		return "(" + x + ", " + y + ")";
 	}
 	
+	public String getType() {
+		if (isGoal) {
+			return "2";
+		}
+		if (isStart) {
+			return "3";
+		}
+		if (solid) {
+			return "1";
+		}
+		return "0";
+	}
+	
 }

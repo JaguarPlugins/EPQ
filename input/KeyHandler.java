@@ -8,6 +8,7 @@ import edu.agray.maze.util.MapHandler;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -25,6 +26,7 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 	public void handle(KeyEvent event) {
 		
 		if (event.getCode().equals(KeyCode.L)) {
+			
 			ChoiceDialog<String> dialog = new ChoiceDialog<String>();
 			ObservableList<String> choices = dialog.getItems();
 			choices.add("Blank 20x20");
@@ -37,6 +39,18 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 				entities.clear();
 			}
 			System.out.println("NEW MAP");
+			
+		}
+		
+		if (event.getCode().equals(KeyCode.S)) {
+			
+			TextInputDialog textInputDialog = new TextInputDialog("Enter name of file");
+			textInputDialog.showAndWait();
+			String result = textInputDialog.getResult();
+			if (result != null) {
+				mapHandler.getMap().saveMap(result + ".txt");
+			}
+			
 		}
 		
 		for (Entity entity : entities) {

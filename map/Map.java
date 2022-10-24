@@ -1,7 +1,6 @@
 package edu.agray.maze.map;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -213,24 +212,34 @@ public class Map {
 		
 	}
 
-	protected void saveMap(String fileName) {
+	public void saveMap(String fileName) {
 		
-		File file = new File(fileName);
+		File file = new File("maps/" + fileName);
 		try {
 			file.createNewFile();
+			System.out.println("file created");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 			Alert a = new Alert(AlertType.ERROR, "Could not create file");
 			a.showAndWait();
 		}
 		try {
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
-			bw.close();
+			OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file));
+			String line;
+			for (Tile[] rows : tiles) {
+				line = "";
+				for (Tile t : rows) {
+					line += t.getType();
+				}
+				System.out.println(line);
+				out.append(line + "\n");
+			}
+			out.flush();
+			out.close();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 		
 	}
 	
