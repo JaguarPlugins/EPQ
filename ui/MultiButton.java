@@ -3,7 +3,7 @@ package edu.agray.maze.ui;
 import edu.agray.maze.ai.Multi;
 import edu.agray.maze.entities.Entity;
 import edu.agray.maze.entities.Turtle;
-import edu.agray.maze.map.Map;
+import edu.agray.maze.util.MapHandler;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -12,14 +12,14 @@ import javafx.scene.text.TextAlignment;
 
 public class MultiButton extends Button {
 
-	public MultiButton(Map map, double x, double y, double width, double height) {
-		super(map, x, y, width, height);
+	public MultiButton(MapHandler mapHandler, double x, double y, double width, double height) {
+		super(mapHandler, x, y, width, height);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public Entity click() {
-		return new Turtle(map, new Multi(), map.getStartX(), map.getStartY(), map.getTileWidth(), map.getTileHeight());
+		return new Turtle(mapHandler.getMap(), new Multi(), mapHandler.getMap().getStartX(), mapHandler.getMap().getStartY(), mapHandler.getMap().getTileWidth(), mapHandler.getMap().getTileHeight());
 	}
 
 	@Override

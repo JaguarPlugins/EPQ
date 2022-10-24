@@ -1,7 +1,7 @@
 package edu.agray.maze.ui;
 
 import edu.agray.maze.entities.Entity;
-import edu.agray.maze.map.Map;
+import edu.agray.maze.util.MapHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
@@ -11,12 +11,12 @@ public abstract class Button {
 	protected Rectangle hitbox;
 	protected boolean hover;
 	protected final static double BUFFER = 5, SMOOTH = 15;
-	protected Map map;
+	protected MapHandler mapHandler;
 	private Entity entity;
 	
-	public Button(Map map, double x, double y, double width, double height) {
+	public Button(MapHandler mapHandler, double x, double y, double width, double height) {
 		hitbox = new Rectangle(x + 4*BUFFER, y + BUFFER, width - 8*BUFFER, height - 2*BUFFER);
-		this.map = map;
+		this.mapHandler = mapHandler;
 	}
 	
 	public abstract Entity click();

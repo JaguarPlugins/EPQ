@@ -46,6 +46,8 @@ public class Map {
 		
 	public Map(int width, int height) {
 		tiles = new Tile[width][height];
+		tileWidth = Main.WIDTH/width;
+		tileHeight = Main.HEIGHT/height;
 	}
 	
 	public boolean isLocked() {

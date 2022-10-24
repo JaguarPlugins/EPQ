@@ -1,8 +1,8 @@
 package edu.agray.maze.input;
 
-import edu.agray.maze.map.Map;
 import edu.agray.maze.map.Tile;
 import edu.agray.maze.ui.Button;
+import edu.agray.maze.util.MapHandler;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -10,20 +10,20 @@ import javafx.scene.input.MouseEvent;
 public class MouseHandler implements EventHandler<MouseEvent> {
 
 	private Button[] buttons;
-	private Map map;
+	private MapHandler mapHandler;
 	private boolean mouseHeld;
 	private Tile oldTile;
 	
-	public MouseHandler(Button[] buttons, Map map) {
+	public MouseHandler(Button[] buttons, MapHandler mapHandler) {
 		this.buttons = buttons;
-		this.map = map;
+		this.mapHandler = mapHandler;
 		mouseHeld = false;
 	}
 
 	@Override
 	public void handle(MouseEvent event) {
 		
-		if (!map.isLocked()) {
+		if (!mapHandler.getMap().isLocked()) {
 
 			if (event.getButton().equals(MouseButton.PRIMARY)) {
 			
@@ -35,7 +35,7 @@ public class MouseHandler implements EventHandler<MouseEvent> {
 				}
 				
 				
-				Tile target = map.getTile(event.getX(), event.getY());
+				Tile target = mapHandler.getMap().getTile(event.getX(), event.getY());
 				if (target != null) {
 					if (mouseHeld && !target.equals(oldTile) && !target.isGoal() && !target.isStart()) {
 						if (event.getEventType().equals(MouseEvent.MOUSE_DRAGGED)) {
@@ -49,23 +49,23 @@ public class MouseHandler implements EventHandler<MouseEvent> {
 				
 			} else if (event.getButton().equals(MouseButton.SECONDARY)) {
 				
-				Tile target = map.getTile(event.getX(), event.getY());
+				Tile target = mapHandler.getMap().getTile(event.getX(), event.getY());
 				if (event.getEventType().equals(MouseEvent.MOUSE_CLICKED) && !target.isSolid()) {
 					target.setGoal(!target.isGoal());
 					if (target.isGoal()) {
-						map.setEndX(target.getX());
-						map.setEndY(target.getY());
+						mapHandler.getMap().setEndX(target.getX());
+						mapHandler.getMap().setEndY(target.getY());
 					}
 				}
 				
 			} else if (event.getButton().equals(MouseButton.MIDDLE)) {
 				
-				Tile target = map.getTile(event.getX(), event.getY());
+				Tile target = mapHandler.getMap().getTile(event.getX(), event.getY());
 				if (event.getEventType().equals(MouseEvent.MOUSE_CLICKED) && !target.isSolid()) {
 					target.setStart(!target.isStart());
 					if (target.isStart()) {
-						map.setStartX(target.getX());
-						map.setStartY(target.getY());
+						mapHandler.getMap().setStartX(target.getX());
+						mapHandler.getMap().setStartY(target.getY());
 					}
 				}
 				

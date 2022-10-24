@@ -10,13 +10,14 @@ import edu.agray.maze.ui.Button;
 import edu.agray.maze.ui.MultiButton;
 import edu.agray.maze.ui.PlayerButton;
 import edu.agray.maze.ui.ScorerButton;
+import edu.agray.maze.util.MapHandler;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 
 public class Run extends AnimationTimer {
 
 	private GraphicsContext g;
-	private Map map;
+	private MapHandler mapHandler;
 	private ArrayList<Entity> entities;
 	private Button[] buttons;
 	private long lastTime;
@@ -26,28 +27,27 @@ public class Run extends AnimationTimer {
 		super();
 		this.g = g;
 		
-//		map = new Map("src/edu/agray/maze/map/medium.txt", 0, 11, 37, 0);
-		map = new BlankMap(40, 40);
+		mapHandler = new MapHandler(new BlankMap(40, 40));
 		entities = new ArrayList<Entity>();
 		lastTime = System.currentTimeMillis();
 		
 		buttons = new Button[4];
 		
-		buttons[0] = new PlayerButton(map, 0, Main.WIDTH, Main.WIDTH/4, Main.HEIGHT - Main.WIDTH);
-		buttons[1] = new ScorerButton(map, Main.WIDTH/4, Main.WIDTH, Main.WIDTH/4, Main.HEIGHT - Main.WIDTH);
-		buttons[2] = new MultiButton(map, 2*Main.WIDTH/4, Main.WIDTH, Main.WIDTH/4, Main.HEIGHT - Main.WIDTH);
-		buttons[3] = new AStarButton(map, 3*Main.WIDTH/4, Main.WIDTH, Main.WIDTH/4, Main.HEIGHT - Main.WIDTH);
+		buttons[0] = new PlayerButton(mapHandler, 0, Main.WIDTH, Main.WIDTH/4, Main.HEIGHT - Main.WIDTH);
+		buttons[1] = new ScorerButton(mapHandler, Main.WIDTH/4, Main.WIDTH, Main.WIDTH/4, Main.HEIGHT - Main.WIDTH);
+		buttons[2] = new MultiButton(mapHandler, 2*Main.WIDTH/4, Main.WIDTH, Main.WIDTH/4, Main.HEIGHT - Main.WIDTH);
+		buttons[3] = new AStarButton(mapHandler, 3*Main.WIDTH/4, Main.WIDTH, Main.WIDTH/4, Main.HEIGHT - Main.WIDTH);
 		
 	}
 
 	@Override
 	public void handle(long now) {
 		
-//		if (now - lastTime > 100_000_000L) {
+		if (now - lastTime > 1_000_000L) {
 			tick();
 			render();
 			lastTime = now;
-//		}
+		}
 	
 	}
 
@@ -72,7 +72,7 @@ public class Run extends AnimationTimer {
 		
 		g.clearRect(0, 0, Main.WIDTH, Main.HEIGHT);
 		
-		map.render(g);
+		mapHandler.getMap().render(g);
 		
 		for (Button b : buttons) {
 			b.render(g);
@@ -87,13 +87,17 @@ public class Run extends AnimationTimer {
 	}
 	
 	public Map getMap() {
-		return map;
+		return mapHandler.getMap();
 	}
 
 	public void setMap(Map map) {
-		this.map = map;
+		mapHandler.setMap(map);
 	}
 	
+	public MapHandler getMapHandler() {
+		return mapHandler;
+	}
+
 	public Button[] getButtons() {
 		return buttons;
 	}

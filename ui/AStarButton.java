@@ -3,7 +3,7 @@ package edu.agray.maze.ui;
 import edu.agray.maze.ai.AStar;
 import edu.agray.maze.entities.Entity;
 import edu.agray.maze.entities.Turtle;
-import edu.agray.maze.map.Map;
+import edu.agray.maze.util.MapHandler;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -12,14 +12,14 @@ import javafx.scene.text.TextAlignment;
 
 public class AStarButton extends Button {
 
-	public AStarButton(Map map, double x, double y, double width, double height) {
-		super(map, x, y, width, height);
+	public AStarButton(MapHandler mapHandler, double x, double y, double width, double height) {
+		super(mapHandler, x, y, width, height);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public Entity click() {
-		return new Turtle(map, new AStar(), map.getStartX(), map.getStartY(), map.getTileWidth(), map.getTileHeight());
+		return new Turtle(mapHandler.getMap(), new AStar(), mapHandler.getMap().getStartX(), mapHandler.getMap().getStartY(), mapHandler.getMap().getTileWidth(), mapHandler.getMap().getTileHeight());
 	}
 
 	@Override

@@ -2,9 +2,9 @@ package edu.agray.maze.input;
 
 import java.util.ArrayList;
 
-import edu.agray.maze.Run;
 import edu.agray.maze.entities.Entity;
 import edu.agray.maze.map.Map;
+import edu.agray.maze.util.MapHandler;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.ChoiceDialog;
@@ -14,11 +14,11 @@ import javafx.scene.input.KeyEvent;
 public class KeyHandler implements EventHandler<KeyEvent> {
 
 	private ArrayList<Entity> entities;
-	private Run run;
+	private MapHandler mapHandler;
 	
-	public KeyHandler(ArrayList<Entity> entities, Run run) {
+	public KeyHandler(ArrayList<Entity> entities, MapHandler mapHandler) {
 		this.entities = entities;
-		this.run = run;
+		this.mapHandler = mapHandler;
 	}
 	
 	@Override
@@ -33,7 +33,8 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 			String selected = dialog.getResult();
 			Map newMap = new Map("maps\\" + selected);
 			if (newMap != null) {
-				run.setMap(newMap);
+				mapHandler.setMap(newMap);
+				entities.clear();
 			}
 			System.out.println("NEW MAP");
 		}
