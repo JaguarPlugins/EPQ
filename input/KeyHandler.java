@@ -3,6 +3,7 @@ package edu.agray.maze.input;
 import java.util.ArrayList;
 
 import edu.agray.maze.entities.Entity;
+import edu.agray.maze.map.BlankMap;
 import edu.agray.maze.map.Map;
 import edu.agray.maze.util.MapHandler;
 import javafx.collections.ObservableList;
@@ -29,16 +30,32 @@ public class KeyHandler implements EventHandler<KeyEvent> {
 			
 			ChoiceDialog<String> dialog = new ChoiceDialog<String>();
 			ObservableList<String> choices = dialog.getItems();
-			choices.add("Blank 20x20");
+			choices.add("BLANK 10x10");
+			choices.add("BLANK 20x20");
+			choices.add("BLANK 30x30");
+			choices.add("BLANK 40x40");
+			choices.add("BLANK 50x50");
+			choices.add("BLANK 60x60");
 			choices.addAll(Map.lookupMaps());
 			dialog.showAndWait();
 			String selected = dialog.getResult();
-			Map newMap = new Map("maps\\" + selected);
-			if (newMap != null) {
+			Map newMap = new Map();
+			
+			if (newMap.loadMap("maps\\" + selected)) {
 				mapHandler.setMap(newMap);
 				entities.clear();
+			} else if (selected.split(" ")[0].equalsIgnoreCase("BLANK")) {
+				
+				try {
+					int width = Integer.parseInt(selected.split("x")[1]);
+					newMap = new BlankMap(width, width);
+					mapHandler.setMap(newMap);
+					entities.clear();
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
+				
 			}
-			System.out.println("NEW MAP");
 			
 		}
 		

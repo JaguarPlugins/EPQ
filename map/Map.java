@@ -24,22 +24,7 @@ public class Map {
 	protected int startX, startY;
 	protected boolean locked;
 	
-	public Map(String fileName) {
-		
-		tiles = loadMap(fileName);
-		for (Tile[] rows : tiles) {
-			for (Tile t : rows) {
-				if (t.isGoal()) {
-					endX = t.getX();
-					endY = t.getY();
-				}
-				if (t.isStart()) {
-					startX = t.getX();
-					startY = t.getY();
-				}
-			}
-		}
-		locked = true;
+	public Map() {
 		
 	}
 		
@@ -139,13 +124,16 @@ public class Map {
 		
 	}
 	
-	protected Tile[][] loadMap(String fileName) {
+	public boolean loadMap(String fileName) {
 		
 //		File loading often throws errors so we need to surround it with a try statement to avoid crashes
 		try {
 			
 //			Opens the file and starts reading it
 			File file = new File(fileName);
+			if (!file.exists()) {
+				return false;
+			}
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 			
 //			ArrayList does not have a pre-specified length so can easily be added to regardless of length of file
@@ -190,24 +178,39 @@ public class Map {
 			tileWidth = Main.WIDTH / outputList.get(0).length; // calculates the height of each tile
 			
 //			Converts the ArrayList into a normal array as these are easier to deal with
-			Tile[][] outputArray = new Tile[outputList.size()][outputList.get(0).length];
+			tiles = new Tile[outputList.size()][outputList.get(0).length];
 			for (int i = 0; i < outputList.size(); i++) {
-				outputArray[i] = outputList.get(i);
+				tiles[i] = outputList.get(i);
 			}
 			
-			return outputArray;
+//			Setup for tile data
+			for (Tile[] rows : tiles) {
+				for (Tile t : rows) {
+					if (t.isGoal()) {
+						endX = t.getX();
+						endY = t.getY();
+					}
+					if (t.isStart()) {
+						startX = t.getX();
+						startY = t.getY();
+					}
+				}
+			}
+			locked = true;
+			
+			return true;
 			
 //		Catch statements will send messages to the user if there are any errors
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			Alert a = new Alert(AlertType.ERROR, "File could not be found");
 			a.showAndWait();
-			return null;
+			return false;
 		} catch (IOException e) {
 			e.printStackTrace();
 			Alert a = new Alert(AlertType.ERROR, "I/O exception");
 			a.showAndWait();
-			return null;
+			return false;
 		}
 		
 	}
