@@ -43,17 +43,26 @@ public abstract class Entity {
 	public void handle(KeyEvent e){
 	
 		// sets an array to which keys are pressed so that movement can be handled uniformly in the tick method
+		boolean state;
+		if (e.getEventType().equals(KeyEvent.KEY_PRESSED)) {
+			state = true;
+		} else if (e.getEventType().equals(KeyEvent.KEY_RELEASED)) {
+			state = false;
+		} else {
+			return;
+		}
+		
 		if (e.getCode().equals(KeyCode.UP)) {
-			keys[0] = e.getEventType().equals(KeyEvent.KEY_PRESSED);
+			keys[0] = state;
 		}
 		if (e.getCode().equals(KeyCode.RIGHT)) {
-			keys[1] = e.getEventType().equals(KeyEvent.KEY_PRESSED);
+			keys[1] = state;
 		}
 		if (e.getCode().equals(KeyCode.DOWN)) {
-			keys[2] = e.getEventType().equals(KeyEvent.KEY_PRESSED);
+			keys[2] = state;
 		}
 		if (e.getCode().equals(KeyCode.LEFT)) {
-			keys[3] = e.getEventType().equals(KeyEvent.KEY_PRESSED);
+			keys[3] = state;
 		}
 
 	}

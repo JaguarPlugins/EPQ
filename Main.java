@@ -35,6 +35,7 @@ public class Main extends Application {
 		MouseHandler mouseHandler = new MouseHandler(run.getButtons(), run.getMapHandler());
 		KeyHandler keyHandler = new KeyHandler(run.getEntities(), run.getMapHandler());
 		scene.setOnKeyPressed(keyHandler); // player now listens for key presses to move
+		scene.setOnKeyReleased(keyHandler);
 		scene.setOnMouseClicked(mouseHandler);
 		scene.setOnMouseMoved(mouseHandler);
 		scene.setOnMouseReleased(mouseHandler);

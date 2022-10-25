@@ -77,7 +77,7 @@ public class Multi extends AI {
 		
 	}
 
-	private void calculateJunctions(Map map) {
+	public void calculateJunctions(Map map) {
 		
 		for (Tile[] column : map.getMasterArray()) {
 			for (Tile row : column) {
