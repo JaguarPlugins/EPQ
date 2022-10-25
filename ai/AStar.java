@@ -16,16 +16,17 @@ public class AStar extends AI {
 	@Override
 	public void tick(Map map, Tile currentPosition) {
 		
-//		Updates full map every so often
+//		Updates full map every so often so user can see all scores
 		if (lastUpdate > 20) {
-			for (Tile[] row : map.getMasterArray()) {
+			for (Tile[] row : map.getMasterArray()) { // loops through full array
 				for (Tile column : row) {
 					updateScore(map, currentPosition, column, map.getGoalTile());
 				}
 			}
-			lastUpdate = 0;
+			lastUpdate = 0; // keeps track of number of ticks since last update
 		}
 		
+//		Gets all the possible tiles that the AI can currently move to
 		Tile [] options = generateOptions(map, currentPosition);
 		
 		for (Tile tile : options) {
@@ -47,12 +48,16 @@ public class AStar extends AI {
 	private void updateScore(Map map, Tile start, Tile node, Tile target) {
 		
 //		Uses modifier to stop AStar from revisiting old tiles
-		double score = manhatten(map, start, node) + manhatten(map, node, map.getGoalTile()) + MODIFYER * node.getTimesVisited();
+		double score = 
+					manhatten(map, start, node) // distance to node
+					+ manhatten(map, node, map.getGoalTile()) // distance from node to target
+					+ MODIFYER * node.getTimesVisited(); // discourages doubling back
 		node.setScore(score);
 	
 	}
 	
 	private double manhatten(Map map, Tile start, Tile end) {
+//		Calculates the Manhattan distance between 2 points
 		
 		int dx = Math.abs(start.getX() - end.getX());
 		int dy = Math.abs(start.getY() - end.getY());
